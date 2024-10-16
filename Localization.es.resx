@@ -1,0 +1,1126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AskLogOff" xml:space="preserve">
+    <value>Desea terminar sesion?</value>
+  </data>
+  <data name="AskPassword" xml:space="preserve">
+    <value>Teclea palabra clave par Iniciar Sesion</value>
+  </data>
+  <data name="CurrentTestMode" xml:space="preserve">
+    <value>Modo de Prueba</value>
+  </data>
+  <data name="CurrentUser" xml:space="preserve">
+    <value>Usuario acual</value>
+  </data>
+  <data name="CycleStarted" xml:space="preserve">
+    <value>Ciclo Inciado con Numero de Serie: '{0}'</value>
+  </data>
+  <data name="DoesNotHavePermission" xml:space="preserve">
+    <value>No se tiene permiso para ejecutar el comando</value>
+  </data>
+  <data name="InvalidPassword" xml:space="preserve">
+    <value>Palabra clave Invalida. Intente de nuevo.</value>
+  </data>
+  <data name="IsNotValid" xml:space="preserve">
+    <value>No es un comando valido</value>
+  </data>
+  <data name="LoggedIn" xml:space="preserve">
+    <value>Sesion Inciada</value>
+  </data>
+  <data name="LoggedOff" xml:space="preserve">
+    <value>Sesion Finalizada</value>
+  </data>
+  <data name="minutes" xml:space="preserve">
+    <value>minutos</value>
+  </data>
+  <data name="MustLogOff" xml:space="preserve">
+    <value>Debe Finalizar sesion antes de iniciar una nueva</value>
+  </data>
+  <data name="OpLoggedOff" xml:space="preserve">
+    <value>Operador cerro sesión</value>
+  </data>
+  <data name="OpNotLoggedIn" xml:space="preserve">
+    <value>Operador no inició sesión</value>
+  </data>
+  <data name="PasswordsDontMatch" xml:space="preserve">
+    <value>Las contraseñas no coinciden! Favor de intentar de nuevo</value>
+  </data>
+  <data name="PleaseEnterPassword" xml:space="preserve">
+    <value>Teclea palabra clave!</value>
+  </data>
+  <data name="PleaseLogIn" xml:space="preserve">
+    <value>Favor de iniciar sesión en el sistema primero</value>
+  </data>
+  <data name="ScanLogin" xml:space="preserve">
+    <value>Por favor escanear credencial para entrar</value>
+  </data>
+  <data name="ResetComplete" xml:space="preserve">
+    <value>Reinicio completo</value>
+  </data>
+  <data name="ResetInitiated" xml:space="preserve">
+    <value>Reinicio iniciado</value>
+  </data>
+  <data name="Reset_Prompt" xml:space="preserve">
+    <value>Reestableciendo...</value>
+  </data>
+  <data name="TestAborted" xml:space="preserve">
+    <value>NO PRUEBA: Operador aborto la prueba.</value>
+  </data>
+  <data name="TestAborted_Prompt" xml:space="preserve">
+    <value>Prueba abortada! Presionar RECONOCIMIENTO para continuar…</value>
+  </data>
+  <data name="BlankTestSelectPortFirst" xml:space="preserve">
+    <value>Puerto no seleccionado! Favor de seleccionar un puerto antes de escanear "PRUEBA EN BLANCO"</value>
+  </data>
+  <data name="SelectPort" xml:space="preserve">
+    <value>Escanear '{0}' para iniciar prueba.</value>
+  </data>
+  <data name="ManualCommands" xml:space="preserve">
+    <value>Comandos manuales</value>
+  </data>
+  <data name="Failed" xml:space="preserve">
+    <value>RECHAZADO</value>
+  </data>
+  <data name="Passed" xml:space="preserve">
+    <value>Aceptable</value>
+  </data>
+  <data name="LastTestResult" xml:space="preserve">
+    <value>Resultado prueba anterior:</value>
+  </data>
+  <data name="PortDisabled_Prompt" xml:space="preserve">
+    <value>Puerto deshabilitado</value>
+  </data>
+  <data name="AskShutdown" xml:space="preserve">
+    <value>Desea Apagar el sistema?</value>
+  </data>
+  <data name="AskShutdownNotIdle" xml:space="preserve">
+    <value>PRECAUCION:  El sistema no esta en sestado inactivo; Seguro que desea apagarlo?</value>
+  </data>
+  <data name="ModelNotFound" xml:space="preserve">
+    <value>modelo no encontrado</value>
+  </data>
+  <data name="ModelNumber" xml:space="preserve">
+    <value>Modelo Numero: {0}</value>
+  </data>
+  <data name="ModelNumberNotReady" xml:space="preserve">
+    <value>El sistema no esta listo para número de modelo</value>
+  </data>
+  <data name="ResetCheckPressure_Prompt" xml:space="preserve">
+    <value>Comprobando si la unidad tiene que ser ventilada</value>
+  </data>
+  <data name="SelectModelPortNotSelected" xml:space="preserve">
+    <value>Puerto no seleccionado! Favor de sleccionar un puerto antes de escanear "SELECCIONAR MODELO"</value>
+  </data>
+  <data name="ModelNumberRegex" xml:space="preserve">
+    <value>(?&lt;=Número de modelo:\s)[^\r^\n]*</value>
+  </data>
+  <data name="NotReadyForModel" xml:space="preserve">
+    <value>El sistema no esta listo para seleccionar el model en este momento</value>
+  </data>
+  <data name="SelectModelNotAvailable" xml:space="preserve">
+    <value>El sistema no esta configurado para usar la opción "SELECCIONAR MODELO"</value>
+  </data>
+  <data name="SystemNotIdle" xml:space="preserve">
+    <value>El sistema debe de preguntar para ejecutar el comando</value>
+  </data>
+  <data name="FailedTH" xml:space="preserve">
+    <value>RECHAZADO: {0:0.00}</value>
+  </data>
+  <data name="PassedTH" xml:space="preserve">
+    <value>Aceptable</value>
+  </data>
+  <data name="EnterStandby_Prompt" xml:space="preserve">
+    <value>Entrando en modo de espera… Favor de esperar</value>
+  </data>
+  <data name="LowOilWarning_Prompt" xml:space="preserve">
+    <value>Advertencia: Bajo nivel de aceite de la bomba de vacío</value>
+  </data>
+  <data name="TestAbortedTH" xml:space="preserve">
+    <value>Prueba abortada</value>
+  </data>
+  <data name="PressureTooHigh" xml:space="preserve">
+    <value>Presión muy alta</value>
+  </data>
+  <data name="PressureTooHigh_Failed" xml:space="preserve">
+    <value>FALLO: Presión excede maximo rango de baratron! Fuga bruta detectada</value>
+  </data>
+  <data name="AdjustTorrcons" xml:space="preserve">
+    <value>Ajustar torrcons</value>
+  </data>
+  <data name="MustBeInManual" xml:space="preserve">
+    <value>El sistema debe estar en modo manual para ejecutar '{0}'</value>
+  </data>
+  <data name="AdjustTorrcons_Prompt" xml:space="preserve">
+    <value>La comunicación con torrcons ha sido detenida. Ajustar los torrcons a lo necesario y escanear AUTOTEST cuando este listo</value>
+  </data>
+  <data name="Disabled_Prompt" xml:space="preserve">
+    <value>Puerto deshabilitado</value>
+  </data>
+  <data name="MustBeInAutotest" xml:space="preserve">
+    <value>El sistema debe estar en modo de auto prueba para ejecutar el comando</value>
+  </data>
+  <data name="NotInAutoTestMode" xml:space="preserve">
+    <value>El sistema debe estar en AutoPrueba para ejecutar el comando</value>
+  </data>
+  <data name="ScanSerialNumber2_Prompt" xml:space="preserve">
+    <value>Listo para prueba. Cargar parte y usar botón de dedo para iniciar prueba</value>
+  </data>
+  <data name="ScanSerialNumber2_Prompt2" xml:space="preserve">
+    <value>Listo para prueba. Escanear modelo</value>
+  </data>
+  <data name="ScanSerialNumber_Prompt" xml:space="preserve">
+    <value>Puerto seleccionado. Cargar parte y usar botón de dedo para iniciar prueba.</value>
+  </data>
+  <data name="ScanSerialNumber_Prompt2" xml:space="preserve">
+    <value>Escanear codigo de barras o seleccionar "PRUEBA EN BLANCO" para continuar</value>
+  </data>
+  <data name="SeqBasePressureCheck" xml:space="preserve">
+    <value>Revisión de base presión</value>
+  </data>
+  <data name="SeqReadyForSequence" xml:space="preserve">
+    <value>Listo para secuencia</value>
+  </data>
+  <data name="SerialNumberForLog" xml:space="preserve">
+    <value>Numero de serie: {0}</value>
+  </data>
+  <data name="SerialNumberNotReady" xml:space="preserve">
+    <value>El sistema no esta listo para número de serie</value>
+  </data>
+  <data name="InquirePrompt" xml:space="preserve">
+    <value>Aquí es donde el aviso debe entrar</value>
+  </data>
+  <data name="AcknowledgeRequired" xml:space="preserve">
+    <value>Oprimir reconocimiento para continuar</value>
+  </data>
+  <data name="NoTestButtonRequired" xml:space="preserve">
+    <value>Presionar botón de NO PRUEBA AMBER para continuar</value>
+  </data>
+  <data name="AutoDemoActive_Prompt" xml:space="preserve">
+    <value>Ciclo auto demo habilitado</value>
+  </data>
+  <data name="WaitForPartPDProofToComplete_Prompt" xml:space="preserve">
+    <value>Esperando para terminar prueba PD para completar</value>
+  </data>
+  <data name="seqATestStep" xml:space="preserve">
+    <value>Sequencia de etapa de prueba</value>
+  </data>
+  <data name="RoughLowOilWarning_Prompt" xml:space="preserve">
+    <value>Desfogue de nivel de bomba de aceite lento</value>
+  </data>
+  <data name="ForelineLowOilWarning_Prompt" xml:space="preserve">
+    <value>Aviso de bajo flujo de aceite</value>
+  </data>
+  <data name="PartConnectorCheckBlue_Prompt" xml:space="preserve">
+    <value>Revisión de conector azúl</value>
+  </data>
+  <data name="PartConnectorCheckWhite_Prompt" xml:space="preserve">
+    <value>Revisión de conector blanco</value>
+  </data>
+  <data name="SystemNotReadyToTest" xml:space="preserve">
+    <value>El sistema no esta listo para prueba</value>
+  </data>
+  <data name="EStopError" xml:space="preserve">
+    <value>Botón de emergenia no puede ejecutar este comando</value>
+  </data>
+  <data name="WaitingForPalmButtons_Prompt" xml:space="preserve">
+    <value>Favor de liberar botones palm</value>
+  </data>
+  <data name="MCRPowerError" xml:space="preserve">
+    <value>Sin energia MCR, Jalar botón E-STOP y presionar botón de iniciar</value>
+  </data>
+  <data name="DuplicateSNError" xml:space="preserve">
+    <value>Error al duplicar número de serie</value>
+  </data>
+  <data name="DuplicateSNErrorTH" xml:space="preserve">
+    <value>Duplicar SN</value>
+  </data>
+  <data name="RoughPumpPowerError_Prompt" xml:space="preserve">
+    <value>Falla de energia al arranque en bomba de desfogue trasera</value>
+  </data>
+  <data name="WaterFlowError_Prompt" xml:space="preserve">
+    <value>Error en flujo de agua, revisar flujo de agua en desfogue de bomba y soplador</value>
+  </data>
+  <data name="WaitForAcknowledge_Prompt" xml:space="preserve">
+    <value>Escanear reconocimiento para continuar</value>
+  </data>
+  <data name="BasePressureCheckFailed" xml:space="preserve">
+    <value>Revisión de base presión falló</value>
+  </data>
+  <data name="BasePressureCheckPassed" xml:space="preserve">
+    <value>Revisión de base presión pasó</value>
+  </data>
+  <data name="BasePressureCheckPrompt" xml:space="preserve">
+    <value>Revisión de base presión</value>
+  </data>
+  <data name="ChargeToolEvacFailed" xml:space="preserve">
+    <value>Herramienta de carga Evac falló</value>
+  </data>
+  <data name="ChargeToolEvacPassed" xml:space="preserve">
+    <value>Herramienta de carga Evac pasó</value>
+  </data>
+  <data name="ChargeToolEvacuationPrompt" xml:space="preserve">
+    <value>Evacuación de herramienta de carga</value>
+  </data>
+  <data name="FinalEvacPassed" xml:space="preserve">
+    <value>Evacuación parcial aceptable</value>
+  </data>
+  <data name="FinalEvacPrompt" xml:space="preserve">
+    <value>Evacuación parcial</value>
+  </data>
+  <data name="HiSideChargeFailed" xml:space="preserve">
+    <value>Lado Hi de carga rechazado</value>
+  </data>
+  <data name="HiSideChargePassed" xml:space="preserve">
+    <value>Lado Hi de carga aceptable</value>
+  </data>
+  <data name="HiSideChargePrompt" xml:space="preserve">
+    <value>Cargando lado Hi</value>
+  </data>
+  <data name="HiSideToolCheckFailed" xml:space="preserve">
+    <value>Revisión de herramienta lado Hi rechazado</value>
+  </data>
+  <data name="HiSideToolCheckPassed" xml:space="preserve">
+    <value>Revisión de herramienta lado Hi aceptable</value>
+  </data>
+  <data name="HiSideToolCheckPrompt" xml:space="preserve">
+    <value>Revisando herramienta de lado Hi de la bomba inferior</value>
+  </data>
+  <data name="HoseFillFailed" xml:space="preserve">
+    <value>Falló llenado de manguera</value>
+  </data>
+  <data name="HoseFillPassed" xml:space="preserve">
+    <value>Pasó llenado de manguera</value>
+  </data>
+  <data name="HoseFillPrompt" xml:space="preserve">
+    <value>Aviso de llenado de manguera</value>
+  </data>
+  <data name="InitialEvacPassed" xml:space="preserve">
+    <value>Pasó evac inicial</value>
+  </data>
+  <data name="InitialEvacPrompt" xml:space="preserve">
+    <value>Evacuacion Inicial</value>
+  </data>
+  <data name="IntialEvacFailed" xml:space="preserve">
+    <value>Evac inicial falló</value>
+  </data>
+  <data name="LowSideChargeFailed" xml:space="preserve">
+    <value>Lado bajo de carga rechazado</value>
+  </data>
+  <data name="LowSideChargePassed" xml:space="preserve">
+    <value>Lado bajo de carga aceptable</value>
+  </data>
+  <data name="LowSideChargePrompt" xml:space="preserve">
+    <value>Cargando lado bajo</value>
+  </data>
+  <data name="LowSideToolCheckFailed" xml:space="preserve">
+    <value>Revisión de lado bajo de herramienta rechazado</value>
+  </data>
+  <data name="LowSideToolCheckPassed" xml:space="preserve">
+    <value>Revisiòn de lado bajo de herramienta aceptable</value>
+  </data>
+  <data name="LowSideToolCheckPrompt" xml:space="preserve">
+    <value>Revisando lado bajo de herramienta de bomba inferior</value>
+  </data>
+  <data name="OperatorAcknowledgeFailed" xml:space="preserve">
+    <value>Falló reconocimiento de operador</value>
+  </data>
+  <data name="OperatorAcknowledgePassed" xml:space="preserve">
+    <value>Aprobó reconocimiento de operador</value>
+  </data>
+  <data name="OperatorAcknowledgePrompt" xml:space="preserve">
+    <value>Escanear reconocimiento para continuar</value>
+  </data>
+  <data name="PrechargedUnitCheckFailed" xml:space="preserve">
+    <value>Revisión de unidad pre cargada falló</value>
+  </data>
+  <data name="PrechargedUnitCheckPassed" xml:space="preserve">
+    <value>Revisión de unidad pre cargada pasó</value>
+  </data>
+  <data name="PrechargedUnitCheckPrompt" xml:space="preserve">
+    <value>Revisando si la unidad esta cargada con refrigerante</value>
+  </data>
+  <data name="RateOfRiseCheckFailed" xml:space="preserve">
+    <value>Revisión de rango de aumento falló</value>
+  </data>
+  <data name="RateOfRiseCheckPassed" xml:space="preserve">
+    <value>Revisión de rango de aumento pasó</value>
+  </data>
+  <data name="RateOfRiseCheckPrompt" xml:space="preserve">
+    <value>Revisión de rango de aumento</value>
+  </data>
+  <data name="RepeatEvacFailed" xml:space="preserve">
+    <value>Falló repetición evac</value>
+  </data>
+  <data name="RepeatEvacPassed" xml:space="preserve">
+    <value>Pasó repetición evac</value>
+  </data>
+  <data name="RepeatEvacPrompt" xml:space="preserve">
+    <value>Repetir evacuación</value>
+  </data>
+  <data name="ToolDrainFailed" xml:space="preserve">
+    <value>Drenaje de herramienta falló</value>
+  </data>
+  <data name="ToolDrainPassed" xml:space="preserve">
+    <value>Drenaje de herramienta pasó</value>
+  </data>
+  <data name="ToolDrainPrompt" xml:space="preserve">
+    <value>Drenaje de refrigerante de herramienta</value>
+  </data>
+  <data name="ToolEvacuationFailed" xml:space="preserve">
+    <value>Evacuación de herramienta falló</value>
+  </data>
+  <data name="ToolEvacuationPassed" xml:space="preserve">
+    <value>Evaciación de herramienta pasó</value>
+  </data>
+  <data name="ToolEvacuationPrompt" xml:space="preserve">
+    <value>Evacuando herramienta</value>
+  </data>
+  <data name="ToolRecoveryFailed" xml:space="preserve">
+    <value>Recuperación de herramienta falló</value>
+  </data>
+  <data name="ToolRecoveryPassed" xml:space="preserve">
+    <value>Recuperación de herramienta pasó</value>
+  </data>
+  <data name="ToolRecoveryPrompt" xml:space="preserve">
+    <value>Recuperación de herramienta</value>
+  </data>
+  <data name="HiSideToolConnectorCheckFailed" xml:space="preserve">
+    <value>Revisión de conector de herramienta lado Hi falló</value>
+  </data>
+  <data name="HiSideToolConnectorCheckPassed" xml:space="preserve">
+    <value>Revisión de conector de herramienta lado Hi pasó</value>
+  </data>
+  <data name="HiSideToolConnectorCheckPrompt" xml:space="preserve">
+    <value>Revisión de conector de herramienta lado Hi</value>
+  </data>
+  <data name="LoSideToolConnectorCheckFailed" xml:space="preserve">
+    <value>Revisión de connector de herramienta lado Lo falló</value>
+  </data>
+  <data name="LoSideToolConnectorCheckPassed" xml:space="preserve">
+    <value>Revisión de connector de herramienta lado Lo pasó</value>
+  </data>
+  <data name="LoSideToolConnectorCheckPrompt" xml:space="preserve">
+    <value>Revisión de connector de herramienta lado Lo</value>
+  </data>
+  <data name="FinalEvacFailed" xml:space="preserve">
+    <value>Evac final rechazado</value>
+  </data>
+  <data name="WaitToStartInitialEvacPrompt" xml:space="preserve">
+    <value>Esperando desfogue de bomba para poder empezar la evacuacion inicial</value>
+  </data>
+  <data name="WaitToStartToolCheckPrompt" xml:space="preserve">
+    <value>Esperando desfogue de bomba para poder empezar revisión de herramienta</value>
+  </data>
+  <data name="InsertValveCoresFail" xml:space="preserve">
+    <value>Fallo al insertar nucleos de valvulas</value>
+  </data>
+  <data name="InsertValveCoresPass" xml:space="preserve">
+    <value>Aprobó al insertar nucleos de valvulas</value>
+  </data>
+  <data name="InsertValvesCoresPrompt" xml:space="preserve">
+    <value>Insertar nucleos de valvulas, presionar reconocimiento cuando este lista la recuperación de herramientas</value>
+  </data>
+  <data name="FlowmeterErrorFailed" xml:space="preserve">
+    <value>Error en flujometro</value>
+  </data>
+  <data name="FlowmeterErrorTH" xml:space="preserve">
+    <value>Error en flujometro</value>
+  </data>
+  <data name="LowFlowFailed" xml:space="preserve">
+    <value>Error de flujo bajo</value>
+  </data>
+  <data name="LowFlowTH" xml:space="preserve">
+    <value>Flujo bajo rechazado</value>
+  </data>
+  <data name="MaximumTimeFailed" xml:space="preserve">
+    <value>Carga de tiempo maximo excedió</value>
+  </data>
+  <data name="MaximumTimeTH" xml:space="preserve">
+    <value>Tiempo Máximo falló</value>
+  </data>
+  <data name="OverChargeFailed" xml:space="preserve">
+    <value>Falló sobre carga en flujometro</value>
+  </data>
+  <data name="OverChargeTH" xml:space="preserve">
+    <value>Flujometro sobre carga</value>
+  </data>
+  <data name="PassedCharge" xml:space="preserve">
+    <value>Carga Aceptable: {0:0} lb {1:0.0} oz</value>
+  </data>
+  <data name="PassedChargeTH" xml:space="preserve">
+    <value>Aceptable: {0:0} lb {1:0.0} oz</value>
+  </data>
+  <data name="OverChargeFail" xml:space="preserve">
+    <value>Falló unidad sobre carga:{0:0} lb {1:0.0} oz</value>
+  </data>
+  <data name="OverChargeFailTH" xml:space="preserve">
+    <value>Fallo sobre carga:   {0:0} lb {1:0.0} oz</value>
+  </data>
+  <data name="UnderChargeFail" xml:space="preserve">
+    <value>Falló unidad baja en carga: {0:0} lbs {1:0.0} oz</value>
+  </data>
+  <data name="UnderChargeFailTH" xml:space="preserve">
+    <value>Fail UnderCharge: {0:0} lb {1:0.0} oz</value>
+  </data>
+  <data name="ESStationFailed" xml:space="preserve">
+    <value>No paso estación ES</value>
+  </data>
+  <data name="ESStationFailedTH" xml:space="preserve">
+    <value>No passo estación ES</value>
+  </data>
+  <data name="InitializingBadgeForm" xml:space="preserve">
+    <value>Iniciando forma badge...</value>
+  </data>
+  <data name="InitializingBarCodeScanner" xml:space="preserve">
+    <value>Inicializando Lector de Codigo de Barras...</value>
+  </data>
+  <data name="InitializingCounterBoard" xml:space="preserve">
+    <value>Iniciando tarjeta de contador...</value>
+  </data>
+  <data name="InitializingDataBase" xml:space="preserve">
+    <value>Inicializando Base de Datos...</value>
+  </data>
+  <data name="InitializingDataPlot" xml:space="preserve">
+    <value>Iniciando gráfico de datos...</value>
+  </data>
+  <data name="InitializingEventLog" xml:space="preserve">
+    <value>Inicializando Bitacora de Ventos...</value>
+  </data>
+  <data name="InitializingFlowmeterCalibrationForm" xml:space="preserve">
+    <value>Iniciando formulario de cabilbración del flujometro...</value>
+  </data>
+  <data name="InitializingIOInterface" xml:space="preserve">
+    <value>Inicializando Interfase Encendido/Apagado...</value>
+  </data>
+  <data name="InitializingLibrary" xml:space="preserve">
+    <value>Inicializando Librerias...</value>
+  </data>
+  <data name="InitializingMainForm" xml:space="preserve">
+    <value>Iniciando formulario principal...</value>
+  </data>
+  <data name="InitializingManualCommands" xml:space="preserve">
+    <value>Inicializando Comandos Manuales...</value>
+  </data>
+  <data name="InitializingOperatorForm" xml:space="preserve">
+    <value>Inicializando Formatos de Operador...</value>
+  </data>
+  <data name="InitializingScannerError" xml:space="preserve">
+    <value>Un error ocurrido iniciando escaneo de codigo de barras. Ver bitacora de eventos para detalles</value>
+  </data>
+  <data name="InitializingSchematic" xml:space="preserve">
+    <value>Inicializando Esquemas...</value>
+  </data>
+  <data name="WaitForModelSelectionPrompt" xml:space="preserve">
+    <value>Esperando por selección de modelo. Escanear NUMERO DE MODELO o USAR SELECCIONAR MODELO. No puede usar Numero DEFAULT</value>
+  </data>
+  <data name="BothCircuitsNotEnabled" xml:space="preserve">
+    <value>Ambos circuitos deshabilitados</value>
+  </data>
+  <data name="Circuit1NotEnabled" xml:space="preserve">
+    <value>Circuito 1 blanco no habilitado</value>
+  </data>
+  <data name="Circuit2NotEnabled" xml:space="preserve">
+    <value>Circuito 2 azúl no habilitado</value>
+  </data>
+  <data name="DigitalIOActiveQuestion" xml:space="preserve">
+    <value>Le gustaria que la forma digital IO este activa?</value>
+  </data>
+  <data name="EnterSerialNumber" xml:space="preserve">
+    <value>Introduce Numero de Serie</value>
+  </data>
+  <data name="ManualCommandACKNOWLEDGE" xml:space="preserve">
+    <value>RECONOCIMIENTO</value>
+  </data>
+  <data name="ManualCommandACKNOWLEDGEWARNING" xml:space="preserve">
+    <value>ADVERTENCIA DE RECONOCIMIENTO</value>
+  </data>
+  <data name="ManualCommandAUTOTEST" xml:space="preserve">
+    <value>AUTO PRUEBA</value>
+  </data>
+  <data name="ManualCommandBLANKTEST" xml:space="preserve">
+    <value>PRUEBA EN BLANCO</value>
+  </data>
+  <data name="ManualCommandDISABLEBLUECIRCUIT2" xml:space="preserve">
+    <value>DESHABILITAR CIRCUITO 2 AZÚL</value>
+  </data>
+  <data name="ManualCommandDISABLEWHITECIRCUIT1" xml:space="preserve">
+    <value>DESHABILITAR CIRCUITO 1 BLANCO</value>
+  </data>
+  <data name="ManualCommandENABLEBLUECIRCUIT2" xml:space="preserve">
+    <value>HABILITAR CIRCUITO 2 AZÚL</value>
+  </data>
+  <data name="ManualCommandENABLEWHITECIRCUIT1" xml:space="preserve">
+    <value>HABILITAR CIRCUITO 1 BLANCO</value>
+  </data>
+  <data name="ManualCommandENGLISH" xml:space="preserve">
+    <value>INGLES</value>
+  </data>
+  <data name="ManualCommandFLOWMETERCALIBRATION" xml:space="preserve">
+    <value>CALIBRACIÓN DE FLUJOMETRO</value>
+  </data>
+  <data name="ManualCommandFORCECHARGEBLUECIRCUIT2" xml:space="preserve">
+    <value>FORZAR CARGA DE CIRCUITO 2 AZÚL</value>
+  </data>
+  <data name="ManualCommandFORCECHARGEBOTH" xml:space="preserve">
+    <value>FORZAR CARGA DE AMBOS</value>
+  </data>
+  <data name="ManualCommandFORCECHARGEWHITECIRCUIT1" xml:space="preserve">
+    <value>FORZAR CARGA DE CIRCUITO 1 BLANCO</value>
+  </data>
+  <data name="ManualCommandINQUIRE" xml:space="preserve">
+    <value>PREGUNTAR</value>
+  </data>
+  <data name="ManualCommandLOGIN" xml:space="preserve">
+    <value>INICIAR SESION</value>
+  </data>
+  <data name="ManualCommandLOGOFF" xml:space="preserve">
+    <value>FINALLIZAR SESION</value>
+  </data>
+  <data name="ManualCommandMANUALMODE" xml:space="preserve">
+    <value>MODO MANUAL</value>
+  </data>
+  <data name="ManualCommandRECOVERBLUECIRCUIT2" xml:space="preserve">
+    <value>RECUPERAR CIRCUITO 2 AZÚL</value>
+  </data>
+  <data name="ManualCommandRECOVERWHITECIRCUIT1" xml:space="preserve">
+    <value>RECUPERAR CIRCUITO 1 BLANCO</value>
+  </data>
+  <data name="ManualCommandRESET" xml:space="preserve">
+    <value>REESTABLECER</value>
+  </data>
+  <data name="ManualCommandRESETBLUECIRCUIT2" xml:space="preserve">
+    <value>RESTABLECER CIRCUITO 2 AZÚL</value>
+  </data>
+  <data name="ManualCommandRESETWHITECIRCUIT1" xml:space="preserve">
+    <value>RESTABLECER CIRCUITO 1 BLANCO</value>
+  </data>
+  <data name="ManualCommandSERIALNUMBER" xml:space="preserve">
+    <value>NUMERO DE SEIE</value>
+  </data>
+  <data name="ManualCommandSPANISH" xml:space="preserve">
+    <value>ESPANOL</value>
+  </data>
+  <data name="ManualCommandZEROBLUECIRCUIT2" xml:space="preserve">
+    <value>CIRCUITO 2 AZÚL CERO</value>
+  </data>
+  <data name="ManualCommandZEROWHITECIRCUIT1" xml:space="preserve">
+    <value>CIRCUITO 1 BLANCO CERO</value>
+  </data>
+  <data name="SchematicActiveQuestion" xml:space="preserve">
+    <value>Le gustaria activar el esquema?</value>
+  </data>
+  <data name="SeqHiSideToolCheck" xml:space="preserve">
+    <value>Evacuando herramienta lado Hi</value>
+  </data>
+  <data name="SeqLoSideToolCheck" xml:space="preserve">
+    <value>Evacuando herramienta lado Lo</value>
+  </data>
+  <data name="ViewDigitalIO" xml:space="preserve">
+    <value>VER FORMA DIGITAL IO</value>
+  </data>
+  <data name="ViewSchematic" xml:space="preserve">
+    <value>VER ESQUEMA</value>
+  </data>
+  <data name="SeqChargeHoseChargeToolRecovery" xml:space="preserve">
+    <value>Recuperando Herramientas</value>
+  </data>
+  <data name="Circuit1NoToolEnabled" xml:space="preserve">
+    <value>Herramienta de circuito 1 blanco no habilitada</value>
+  </data>
+  <data name="Circuit2NoToolEnabled" xml:space="preserve">
+    <value>Herramienta de circuito 2 azúl no habilitada</value>
+  </data>
+  <data name="CircuitNoToolEnabledTH" xml:space="preserve">
+    <value>No herramienta habilitada</value>
+  </data>
+  <data name="MCROff" xml:space="preserve">
+    <value>MCR Apagador, Presionar boton blanco de inicio para reiniciar la maquina</value>
+  </data>
+  <data name="RecoverUnitPrompt" xml:space="preserve">
+    <value>Recuperando unidad, escanear reconocimiento para terminar antes</value>
+  </data>
+  <data name="SeqChargeHiSide" xml:space="preserve">
+    <value>Cargando lado Hi</value>
+  </data>
+  <data name="SeqChargeLoSide" xml:space="preserve">
+    <value>Cargando lado bajo</value>
+  </data>
+  <data name="SeqFinalEvac" xml:space="preserve">
+    <value>Evacuacion</value>
+  </data>
+  <data name="SeqInsertValveCores" xml:space="preserve">
+    <value>Insertar nucleos de valvulas</value>
+  </data>
+  <data name="SeqRORCheck" xml:space="preserve">
+    <value>Verificar Rocio</value>
+  </data>
+  <data name="SeqToolDrain" xml:space="preserve">
+    <value>Herramienta de drenaje</value>
+  </data>
+  <data name="TestAbortedFail" xml:space="preserve">
+    <value>Falló otro lado, Prueba abortada</value>
+  </data>
+  <data name="TestAbortedFailTH" xml:space="preserve">
+    <value>Falló otro lado</value>
+  </data>
+  <data name="WaitForOtherRORPrompt" xml:space="preserve">
+    <value>Esperar por ROR en otros lados para terminar</value>
+  </data>
+  <data name="AnalogSignalCounterOutputs" xml:space="preserve">
+    <value>Salidas del contador</value>
+  </data>
+  <data name="AnalogSignalElapsedTime" xml:space="preserve">
+    <value>Tiempo transcurrido</value>
+  </data>
+  <data name="AnalogSignalEvacPressure" xml:space="preserve">
+    <value>Presión Evac</value>
+  </data>
+  <data name="AnalogSignalFlow" xml:space="preserve">
+    <value>Flujo</value>
+  </data>
+  <data name="AnalogSignalHiSideCounts" xml:space="preserve">
+    <value>Recuentos de lado Hi</value>
+  </data>
+  <data name="AnalogSignallbs" xml:space="preserve">
+    <value>lb</value>
+  </data>
+  <data name="AnalogSignalLoSideCounts" xml:space="preserve">
+    <value>Recuentos de lado Lo</value>
+  </data>
+  <data name="AnalogSignaloz" xml:space="preserve">
+    <value>oz</value>
+  </data>
+  <data name="AnalogSignaloz_s" xml:space="preserve">
+    <value>oz/s</value>
+  </data>
+  <data name="AnalogSignalPartCharge" xml:space="preserve">
+    <value>Carga parcial</value>
+  </data>
+  <data name="AnalogSignalPartFlow" xml:space="preserve">
+    <value>Flujo Parcial</value>
+  </data>
+  <data name="AnalogSignalpsig" xml:space="preserve">
+    <value>psig</value>
+  </data>
+  <data name="AnalogSignalseconds" xml:space="preserve">
+    <value>s</value>
+  </data>
+  <data name="AnalogSignalSupplyPressure" xml:space="preserve">
+    <value>Presión de suministro</value>
+  </data>
+  <data name="AnalogSignalToolPressure" xml:space="preserve">
+    <value>Presión total</value>
+  </data>
+  <data name="LowPumpOilPrompt" xml:space="preserve">
+    <value>Advertencia de bomba de aceite</value>
+  </data>
+  <data name="LowRefPressurePrompt" xml:space="preserve">
+    <value>Presión de suministro de refrigerante baja</value>
+  </data>
+  <data name="ManualCommandRECOVERBOTH" xml:space="preserve">
+    <value>RECUPERAR AMBOS</value>
+  </data>
+  <data name="NoWeightEnteredOrDataSelected" xml:space="preserve">
+    <value>NO SE INTRODUJO PESO O INFORMACIÓN SELECCIONADA</value>
+  </data>
+  <data name="CheckingUSBCounter" xml:space="preserve">
+    <value>Checking for USB Counter, Program will halt if USB Counter not setup or connected.</value>
+  </data>
+  <data name="InitializingMessageForm" xml:space="preserve">
+    <value>Initializing Message Form.</value>
+  </data>
+  <data name="RecoveryTankFullWarningPrompt" xml:space="preserve">
+    <value>Recovery Tank is Full.  Change Tank before running a test cycle.</value>
+  </data>
+  <data name="IdleScaleEnabled_Prompt" xml:space="preserve">
+    <value>Scale Enabled:  Place Unit on Scale with NO Hose Whips, scan Serial Number to begin Testing</value>
+  </data>
+  <data name="InitializeScaleComPort" xml:space="preserve">
+    <value>Initializing Scale RS 232 Com Port</value>
+  </data>
+  <data name="ManualCommandFINALWEIGHT" xml:space="preserve">
+    <value>FINAL WEIGHT</value>
+  </data>
+  <data name="ManualCommandStart" xml:space="preserve">
+    <value>START</value>
+  </data>
+  <data name="OverChargeFailByScale" xml:space="preserve">
+    <value>Fail Scale Over Charge: {0:0} lb {1:0.0} oz</value>
+  </data>
+  <data name="OverChargeFailByScaleTH" xml:space="preserve">
+    <value>FailScaleOvrChrg:{0:0} lb {1:0.0} oz</value>
+  </data>
+  <data name="ScaleWeight" xml:space="preserve">
+    <value>Scale Weight</value>
+  </data>
+  <data name="UnderChargeFailByScale" xml:space="preserve">
+    <value>Fail Scale Under Charge {0:0} lb {1:0.0} oz</value>
+  </data>
+  <data name="UnderChargeFailByScaleTH" xml:space="preserve">
+    <value>FailScaleUndrChrg:{0:0} lb {1:0.0} oz</value>
+  </data>
+  <data name="UnitNetWeight" xml:space="preserve">
+    <value>Unit Net Weight</value>
+  </data>
+  <data name="UnitStartWeight" xml:space="preserve">
+    <value>Unit Start Weight</value>
+  </data>
+  <data name="WaitForFINALWEIGHT_Prompt" xml:space="preserve">
+    <value>Crimp Connections, Remove Hose Whips, place crimped ends on top of the unit and scan FINAL WEIGHT</value>
+  </data>
+  <data name="WaitForSTART_Prompt" xml:space="preserve">
+    <value>Connect Hose Whips.  Scan START to begin Evacuation and Charge.</value>
+  </data>
+  <data name="WeighChargedUnit_Prompt" xml:space="preserve">
+    <value>Weighing Charged Unit, DO NOT TOUCH</value>
+  </data>
+  <data name="WeighDisconnectedUnit_Prompt" xml:space="preserve">
+    <value>Weighing Disconnected Unit, DO NOT TOUCH</value>
+  </data>
+  <data name="CheckStoredProcedure_Failed1" xml:space="preserve">
+    <value>Unit Check Failed: No compressor</value>
+  </data>
+  <data name="CheckStoredProcedure_Failed2" xml:space="preserve">
+    <value>Unit Check Failed:  Wrong Compressor</value>
+  </data>
+  <data name="CheckStoredProcedure_FailedConnect" xml:space="preserve">
+    <value>Stored Procedure Data Error</value>
+  </data>
+  <data name="CheckStoredProcedure_Passed" xml:space="preserve">
+    <value>Stored Procedure Passed</value>
+  </data>
+  <data name="CheckStoredProcedure_Prompt" xml:space="preserve">
+    <value>Checking Stored Procedure if Unit is Ready to Test</value>
+  </data>
+  <data name="HighSideLowOilWarning_Prompt" xml:space="preserve">
+    <value>Advertencia: Bajo nivel de aceite de la bomba de vacío Lado Hi</value>
+  </data>
+  <data name="LowSideLowOilWarning_Prompt" xml:space="preserve">
+    <value>Advertencia: Bajo nivel de aceite de la bomba de vacío Lado bajo</value>
+  </data>
+  <data name="Idle_Prompt_ScanOnly" xml:space="preserve">
+    <value>Escanear Numero de Serie</value>
+  </data>
+  <data name="AnalogSignalHiSideCounterLimit" xml:space="preserve">
+    <value>Hi Side Counter Limit</value>
+  </data>
+  <data name="AnalogSignalLoSideToolPressure" xml:space="preserve">
+    <value>Low Side Tool Press</value>
+  </data>
+  <data name="AnalogSignalLowSideCounterLimit" xml:space="preserve">
+    <value>Lo Side Counter Limit</value>
+  </data>
+  <data name="AnalogSignalMicrons" xml:space="preserve">
+    <value>microns</value>
+  </data>
+  <data name="DiagBasePressChkPrompt" xml:space="preserve">
+    <value>Checking the Base Pressure</value>
+  </data>
+  <data name="DiagBasePressChk_failed" xml:space="preserve">
+    <value>Diagnostics: Base Pressure Check Failed</value>
+  </data>
+  <data name="DiagBasePressChk_TH" xml:space="preserve">
+    <value>Base Press Fault</value>
+  </data>
+  <data name="DiagEvacAllLinesPrompt" xml:space="preserve">
+    <value>Evacuating Both Guns, the Supply Line, and Recovery Line</value>
+  </data>
+  <data name="DiagEvacAllLines_failed" xml:space="preserve">
+    <value>Diagnostics: Failed to Evacuate Supply and Recovery Lines</value>
+  </data>
+  <data name="DiagEvacB4TstChargeValvePrompt" xml:space="preserve">
+    <value>Evacuating the Leaky Gun</value>
+  </data>
+  <data name="DiagEvacB4TstChargeValve_failed" xml:space="preserve">
+    <value>Diagnostics: Failed to Evacuate Leaking Gun </value>
+  </data>
+  <data name="DiagEvacB4TstRecovValvePrompt" xml:space="preserve">
+    <value>Evacuating the leaky Gun</value>
+  </data>
+  <data name="DiagEvacB4TstRecovValve_failed" xml:space="preserve">
+    <value>Diagnostics: Failed to Evacuate Leaking Gun </value>
+  </data>
+  <data name="DiagEvacBothGunsPrompt" xml:space="preserve">
+    <value>Evacuating Both Guns</value>
+  </data>
+  <data name="DiagEvacBothGuns_failed" xml:space="preserve">
+    <value>Diagnostics: Failed to Evacuate both Guns</value>
+  </data>
+  <data name="DiagEvacBothGuns_TH" xml:space="preserve">
+    <value>EvacFault</value>
+  </data>
+  <data name="DiagEvacHighGunPrompt" xml:space="preserve">
+    <value>Evacuating Hi side Gun</value>
+  </data>
+  <data name="DiagEvacHighGun_failed" xml:space="preserve">
+    <value>Diagnostics: Failed to Evacuate High Side Gun</value>
+  </data>
+  <data name="DiagEvacHosesPrompt" xml:space="preserve">
+    <value>Evacuating Hosing</value>
+  </data>
+  <data name="DiagEvacHoses_failed" xml:space="preserve">
+    <value>Diagnostics: Failed to evacuate the Hoses</value>
+  </data>
+  <data name="DiagEvacLowGunPrompt" xml:space="preserve">
+    <value>Evacuating Low Side Gun</value>
+  </data>
+  <data name="DiagEvacLowGun_failed" xml:space="preserve">
+    <value>Diagnostics: Failed to Evacuate Low Side Gun</value>
+  </data>
+  <data name="DiagLookWithAlcoholPrompt" xml:space="preserve">
+    <value>Test indicates a leak on hosing
+Spray alchol on connections and watch for a spike or drop in pressure 
+When finished looking, press Acknowledge</value>
+  </data>
+  <data name="DiagLookWithAlcohol_failed" xml:space="preserve">
+    <value>Diagnostics: Result indicates a leak on the Hosing</value>
+  </data>
+  <data name="DiagLookWithAlcohol_TH" xml:space="preserve">
+    <value>Hose leaking</value>
+  </data>
+  <data name="DiagOpenSupplyNRecovPrompt" xml:space="preserve">
+    <value>The Test indicates there is a leak on the body of the valve
+First Open Supply and Recovery Valves Mannually
+Then Press Acknowledge to end the Diagnostic </value>
+  </data>
+  <data name="DiagOpenSupplyNRecovP_TH" xml:space="preserve">
+    <value>Body of {0} Gun Leaking</value>
+  </data>
+  <data name="DiagOpenSupplyNRecov_passed" xml:space="preserve">
+    <value>Diagnostics: Result Indicates a Leak on the Body of the {0} Gun</value>
+  </data>
+  <data name="DiagPrmpt2PlugPrompt" xml:space="preserve">
+    <value>Place a Blank in both hoses and press ACKNOWLEDGE to continue</value>
+  </data>
+  <data name="DiagPrmptOpenRecovPrompt" xml:space="preserve">
+    <value>Open the Recovery Valve Manually and press acknowledge</value>
+  </data>
+  <data name="DiagPrompt2UnplugPrompt" xml:space="preserve">
+    <value>Remove a Blank from Both Hoses and press ACKNOWLEDGE </value>
+  </data>
+  <data name="DiagPromptOpenSupplyPrompt" xml:space="preserve">
+    <value>Open The Supply Valve and Press Acknowledge</value>
+  </data>
+  <data name="DiagPromtCloseRecovPrompt" xml:space="preserve">
+    <value>Close the Recovery Valve Manually and Press acknowledge</value>
+  </data>
+  <data name="DiagPromtCloseSupplyPrompt" xml:space="preserve">
+    <value>Close Refrigerant Supply Valve Manually and Press Acknowledge</value>
+  </data>
+  <data name="DiagRecovSupplyLinePrompt" xml:space="preserve">
+    <value>Recovering the Supply Line</value>
+  </data>
+  <data name="DiagRecovSupplyLine_failed" xml:space="preserve">
+    <value>Diagnostics: Failed to recover supply lines</value>
+  </data>
+  <data name="DiagRecovSupplyLine_TH" xml:space="preserve">
+    <value>Recovery Fault</value>
+  </data>
+  <data name="DiagRORBothGunsPrompt" xml:space="preserve">
+    <value>Performing a Rate of Rise Test on Both Guns</value>
+  </data>
+  <data name="DiagRORHighGunPrompt" xml:space="preserve">
+    <value>Performing a Rate of Rise on the High Side Gun</value>
+  </data>
+  <data name="DiagRORHosingPrompt" xml:space="preserve">
+    <value>Performing Rate of Rise on Hosing </value>
+  </data>
+  <data name="DiagRORLeakyGunPrompt" xml:space="preserve">
+    <value>Performing a Rate of Rise on the Leaking Gun</value>
+  </data>
+  <data name="DiagRORLowGunPrompt" xml:space="preserve">
+    <value>Performing a Rate of Rise on the Low Side Gun</value>
+  </data>
+  <data name="DiagRORLowGunP_TH" xml:space="preserve">
+    <value>Diagnostics Inconclusive</value>
+  </data>
+  <data name="DiagRORLowGun_passed" xml:space="preserve">
+    <value>Diagnostics: Results are inconclusive </value>
+  </data>
+  <data name="DiagRORTstChrgValvePrompt" xml:space="preserve">
+    <value>Performing a Rate of Rise on the Leaky gun with pressure only behind Charging Valve</value>
+  </data>
+  <data name="DiagRORTstChrgValve_failed" xml:space="preserve">
+    <value>Diagnostics: Result Indicates a leak across the {0} Charge Valve </value>
+  </data>
+  <data name="DiagRORTstChrgValve_TH" xml:space="preserve">
+    <value>{0} Charge Valve Leaking</value>
+  </data>
+  <data name="DiagRORTstRecovValvePrompt" xml:space="preserve">
+    <value>Performing a Rate of Rise on Leaky Gun</value>
+  </data>
+  <data name="DiagRORTstRecovValveP_TH" xml:space="preserve">
+    <value>Diagnostics Inconclusive</value>
+  </data>
+  <data name="DiagRORTstRecovValve_failed" xml:space="preserve">
+    <value>Diagnostics: Result Indicates a leak across the {0} Recovery Valve</value>
+  </data>
+  <data name="DiagRORTstRecovValve_passed" xml:space="preserve">
+    <value>Diagnostics: Results are inconclusive </value>
+  </data>
+  <data name="DiagRORTstRecovValve_TH" xml:space="preserve">
+    <value>{0} Recovery Valve Leaking</value>
+  </data>
+  <data name="DiagRORValveChckPrompt" xml:space="preserve">
+    <value>Checking the Rate of Rise Valve for Leak</value>
+  </data>
+  <data name="DiagRORValveChckP_TH" xml:space="preserve">
+    <value>PASS: Diagnostics</value>
+  </data>
+  <data name="DiagRORValveChck_failed" xml:space="preserve">
+    <value>Diagnostics: Result indicates ROR valve is leaking </value>
+  </data>
+  <data name="DiagRORValveChck_passed" xml:space="preserve">
+    <value>Diagnostics Indicates no leaks </value>
+  </data>
+  <data name="DiagRORValveChck_TH" xml:space="preserve">
+    <value>ROR Valve Leaking</value>
+  </data>
+  <data name="DiagVentingPrompt" xml:space="preserve">
+    <value>Venting the Hoses</value>
+  </data>
+  <data name="DiagVenting_failed" xml:space="preserve">
+    <value>Diagnostics: Failed to Vent Hoses </value>
+  </data>
+  <data name="DiagVenting_TH" xml:space="preserve">
+    <value>Venting Fault</value>
+  </data>
+  <data name="LateLeakFailed_Prompt" xml:space="preserve">
+    <value>Possible late leak, please review brazing and tubing</value>
+  </data>
+  <data name="LateLeakFailed_TH" xml:space="preserve">
+    <value>Possible Leak</value>
+  </data>
+  <data name="LateLeakPassed_Prompt" xml:space="preserve">
+    <value>No Late Leaks Found</value>
+  </data>
+  <data name="LateLeakPassed_TH" xml:space="preserve">
+    <value>NO Late Leaks</value>
+  </data>
+  <data name="AnalogSignalCDGEvac" xml:space="preserve">
+    <value>CDG Evac</value>
+  </data>
+  <data name="AnalogSignalConvectionEvac" xml:space="preserve">
+    <value>Convection Evac</value>
+  </data>
+  <data name="WaitForSerialNumberTxt" xml:space="preserve">
+    <value>Escanear número de serie</value>
+  </data>
+</root>

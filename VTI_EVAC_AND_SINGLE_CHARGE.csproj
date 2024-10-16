@@ -1,0 +1,383 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A2A2B60E-9233-4467-A2B3-13FF6CB3C920}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>VTI_EVAC_AND_SINGLE_CHARGE</RootNamespace>
+    <AssemblyName>VTIEvacAndCharge</AssemblyName>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <ApplicationIcon>Resources\Vtilogo.ico</ApplicationIcon>
+    <StartupObject>VTI_EVAC_AND_SINGLE_CHARGE.Program</StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <PublishUrl>http://localhost/ITER/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Quick Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Quick Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes\Configuration\ControlSettings.cs" />
+    <Compile Include="Classes\Configuration\FlowSettings.cs" />
+    <Compile Include="Classes\Configuration\IOSettings.cs" />
+    <Compile Include="Classes\Configuration\ModelSettings.cs" />
+    <Compile Include="Classes\Configuration\ModeSettings.cs" />
+    <Compile Include="Classes\Configuration\PressureSettings.cs" />
+    <Compile Include="Classes\Configuration\TimeSettings.cs" />
+    <Compile Include="Classes\CycleSteps.cs" />
+    <Compile Include="Classes\Inquire.cs" />
+    <Compile Include="Classes\IOClasses\AnalogInputs.cs" />
+    <Compile Include="Classes\IOClasses\AnalogSignalConverters.cs" />
+    <Compile Include="Classes\IOClasses\AnalogSignals.cs" />
+    <Compile Include="Classes\IOClasses\AnalogOutputs.cs" />
+    <Compile Include="Classes\IOClasses\DigitalInputs.cs" />
+    <Compile Include="Classes\IOClasses\DigitalOutputs.cs" />
+    <Compile Include="Classes\IOClasses\IO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Configuration\Config.cs">
+    </Compile>
+    <Compile Include="Classes\IOClasses\SerialInputs.cs" />
+    <Compile Include="Classes\SQLDataReader1.cs" />
+    <Compile Include="Classes\StaticClasses\MyStaticVariables.cs" />
+    <Compile Include="Classes\TestInfo.cs" />
+    <Compile Include="Classes\ZebraPrinter\Commands\Codes\ElementRotation.cs" />
+    <Compile Include="Classes\ZebraPrinter\Commands\Codes\StandardZebraFont.cs" />
+    <Compile Include="Classes\ZebraPrinter\Commands\ConstantCommands.cs" />
+    <Compile Include="Classes\ZebraPrinter\Commands\GraphicZebraCommand.cs" />
+    <Compile Include="Classes\ZebraPrinter\Commands\IZebraCommand.cs" />
+    <Compile Include="Classes\ZebraPrinter\Commands\ZebraCommands.cs" />
+    <Compile Include="Classes\ZebraPrinter\Printing\IRawPrinter.cs" />
+    <Compile Include="Classes\ZebraPrinter\Printing\IZebraPrinter.cs" />
+    <Compile Include="Classes\ZebraPrinter\Printing\RawPrinter.cs" />
+    <Compile Include="Classes\ZebraPrinter\Printing\ZebraPrinter.cs" />
+    <Compile Include="Enums\Languages.cs" />
+    <Compile Include="Forms\frmCycleStepsInformation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmCycleStepsInformation.designer.cs">
+      <DependentUpon>frmCycleStepsInformation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MessageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MessageForm.Designer.cs">
+      <DependentUpon>MessageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Localization.es.Designer.cs">
+      <DependentUpon>Localization.es.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Enums\LDSCalibrationModeOptions.cs" />
+    <Compile Include="Enums\ModelScanOptions.cs" />
+    <Compile Include="Enums\Ports.cs" />
+    <Compile Include="Enums\TestRejectModes.cs" />
+    <Compile Include="Enums\TestModes.cs" />
+    <Compile Include="Forms\BadgeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BadgeForm.designer.cs">
+      <DependentUpon>BadgeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FlowmeterCalibrate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FlowmeterCalibrate.designer.cs">
+      <DependentUpon>FlowmeterCalibrate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\InquireForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\InquireForm.Designer.cs">
+      <DependentUpon>InquireForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SchematicFormDual.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SchematicFormDual.Designer.cs">
+      <DependentUpon>SchematicFormDual.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SchematicForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SchematicForm.Designer.cs">
+      <DependentUpon>SchematicForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Localization.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Localization.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\Machine.cs" />
+    <Compile Include="Classes\ManualCommands.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings2.Designer.cs" />
+    <Compile Include="VtiStandardMessages.Designer.cs" />
+    <EmbeddedResource Include="Forms\frmCycleStepsInformation.resx">
+      <DependentUpon>frmCycleStepsInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MessageForm.resx">
+      <DependentUpon>MessageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization.es.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Localization.es.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FlowmeterCalibrate.resx">
+      <DependentUpon>FlowmeterCalibrate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\InquireForm.resx">
+      <DependentUpon>InquireForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VtiStandardMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>VtiStandardMessages1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
+    <EmbeddedResource Include="Forms\BadgeForm.resx">
+      <DependentUpon>BadgeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SchematicFormDual.resx">
+      <DependentUpon>SchematicFormDual.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MainForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SchematicForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SchematicForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Localization.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Resources\13930-SCREEN.wmf" />
+    <None Include="Resources\Lennox Charger schematic SMRC-1-3-PCT-OF-01-SP2-G001.wmf" />
+    <None Include="Resources\SMRC-1-3-PCT-OF-01-SP2-G001.wmf" />
+    <None Include="Resources\SMRC-2-PCT-OF-03-SP2-G001.SCREEN.wmf" />
+    <None Include="Settings2.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings21.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WRENCH.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gears.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GRAPH04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Meters.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MISC25.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MISC25.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NET08.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NOTE03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\Red_X.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ARROW9A.ICO" />
+    <None Include="Resources\ARROW9B.ICO" />
+    <None Include="Resources\60px-Go-up.png" />
+    <None Include="Resources\60px-Go-down.png" />
+    <None Include="Resources\GreenCheck.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Sql.Server.Express.1.0">
+      <Visible>False</Visible>
+      <ProductName>SQL Server 2005 Express Edition</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EventLog.png" />
+    <None Include="Resources\MISC251.bmp" />
+    <None Include="Resources\ARROW9B1.ICO" />
+    <None Include="Resources\ARROW9A1.ICO" />
+    <None Include="Resources\60px-Go-up1.png" />
+    <None Include="Resources\60px-Go-down1.png" />
+    <None Include="Resources\Precharge Chamber 8280 IO list.xls" />
+    <None Include="Resources\gears1.png" />
+    <None Include="Resources\schematic.wmf" />
+    <None Include="Resources\D395-SCHEMATIC.png" />
+    <None Include="Resources\18940-G001.wmf" />
+    <Content Include="Resources\Hybrid HD Notes and IO.txt" />
+    <None Include="Resources\SMRC-1-3-PCT-OF-01-SP2 SCREEN SCHEMATIC.PNG" />
+    <Content Include="Resources\Vtilogo.ico" />
+    <Content Include="VtiPLCInterface.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Common\VTI-Library-PLCInterface\VtiPLCInterface.csproj">
+      <Project>{cc27bd10-1f90-4053-a7a0-2ae913cde2b5}</Project>
+      <Name>VtiPLCInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="Common\VTI-Library-WindowsControls\VTIWindowsControlLibrary.csproj">
+      <Project>{d4b420f7-3bcf-4d84-b965-93ae94f6a0f2}</Project>
+      <Name>VTIWindowsControlLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

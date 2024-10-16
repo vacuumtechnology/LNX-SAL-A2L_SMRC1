@@ -1,0 +1,90 @@
+Change using statement and name space to match client project in each of the cs form files.
+
+Machine.cs
+        protected CycleStepsActiveForm _CycleStepsActiveForm;
+
+    public static CycleStepsActiveForm CycleStepsForm { get { return Instance._CycleStepsActiveForm; } }
+
+Add to existing init or new init
+        protected virtual void InitializeSchematic()
+        {
+:
+
+            _CycleStepsActiveForm = new CycleStepsActiveForm();
+        }
+
+Optional add manual command
+ManualCommands.cs
+  [ManualCommand("SHOW ACTIVE CYCLE STEPS", true, CommandPermissionType.None)]
+        public virtual void ShowActiveCycleSteps()
+        {
+            try
+            {
+                Config.Mode.ShowCycleSteps.ProcessValue = true;
+                Config.Mode.Save();
+            }
+            catch (Exception e3)
+            {
+                VtiEvent.Log.WriteWarning("Error SHOW ACTIVE CYCLE STEPS form. " + e3.Message, VtiEventCatType.Manual_Command);
+            }
+        }
+
+
+Shown or hidden if manual command is left visible
+ModeSEttings.cs
+  #region ShowCycleSteps : BooleanParameter
+        [UserScopedSetting()]
+        [XmlElement("BooleanParameter")]
+        [DefaultSettingValue(@"
+            <BooleanParameter>
+                <DisplayName>Display Cycle Steps Form</DisplayName>
+                <ProcessValue>false</ProcessValue>
+                <ToolTip>Displays the active cycle steps form for debugging software.</ToolTip>
+            </BooleanParameter>
+        ")]
+        public BooleanParameter ShowCycleSteps
+        {
+            get
+            {
+                return ((BooleanParameter)this["ShowCycleSteps"]);
+            }
+            set
+            {
+                this["ShowCycleSteps"] = (BooleanParameter)value;
+            }
+        }
+        #endregion
+
+
+in MainForm.cs timerSlidePanels_Tick
+
+ if (Config.Mode.ShowCycleSteps.ProcessValue)
+            {
+                if (Machine.CycleStepsForm.Visible == false)
+                    Machine.CycleStepsForm.Show();
+
+                String strStepNames = "";
+                foreach (CycleStep step in Machine.Cycle[Port.Blue].CycleSteps)
+                {
+                    if (step.Name == "ScanSerialNumber" || step.Name == "ScanSerialNumber2") // exclude
+                        continue;
+                    if (step.State == CycleStepState.InProcess)
+                        if (strStepNames.Length == 0)
+                            strStepNames += step.Name;
+                        else
+                            strStepNames +=  String.Format("\n" + step.Name);
+                }
+                //foreach (CycleStep step2 in Machine.Cycle[Port.White].CycleSteps)  // for dual port
+                //{
+                //    if (step2.Name == "ScanSerialNumber" || step2.Name == "ScanSerialNumber2")
+                //        continue;
+                //    if (step2.State == CycleStepState.InProcess)
+                //        if (strStepNames.Length == 0)
+                //            strStepNames += step2.Name;
+                //        else
+                //            strStepNames += Environment.NewLine + step2.Name;
+                //}
+                if (Machine.CycleStepsForm.rtbCycleStepsActive.Text != strStepNames)
+                Machine.CycleStepsForm.rtbCycleStepsActive.Text = strStepNames;
+            }
+            else { if (Machine.CycleStepsForm.Visible) Machine.CycleStepsForm.Hide(); }

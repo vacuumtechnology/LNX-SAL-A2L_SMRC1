@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VTI_EVAC_AND_SINGLE_CHARGE", "VTI_EVAC_AND_SINGLE_CHARGE.csproj", "{A2A2B60E-9233-4467-A2B3-13FF6CB3C920}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VTIWindowsControlLibrary", "Common\VTI-Library-WindowsControls\VTIWindowsControlLibrary.csproj", "{D4B420F7-3BCF-4D84-B965-93AE94F6A0F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VtiPLCInterface", "Common\VTI-Library-PLCInterface\VtiPLCInterface.csproj", "{CC27BD10-1F90-4053-A7A0-2AE913CDE2B5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Quick Debug|Any CPU = Quick Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A2A2B60E-9233-4467-A2B3-13FF6CB3C920}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2A2B60E-9233-4467-A2B3-13FF6CB3C920}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2A2B60E-9233-4467-A2B3-13FF6CB3C920}.Quick Debug|Any CPU.ActiveCfg = Quick Debug|Any CPU
+		{A2A2B60E-9233-4467-A2B3-13FF6CB3C920}.Quick Debug|Any CPU.Build.0 = Quick Debug|Any CPU
+		{A2A2B60E-9233-4467-A2B3-13FF6CB3C920}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2A2B60E-9233-4467-A2B3-13FF6CB3C920}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4B420F7-3BCF-4D84-B965-93AE94F6A0F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4B420F7-3BCF-4D84-B965-93AE94F6A0F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4B420F7-3BCF-4D84-B965-93AE94F6A0F2}.Quick Debug|Any CPU.ActiveCfg = Quick Debug|Any CPU
+		{D4B420F7-3BCF-4D84-B965-93AE94F6A0F2}.Quick Debug|Any CPU.Build.0 = Quick Debug|Any CPU
+		{D4B420F7-3BCF-4D84-B965-93AE94F6A0F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4B420F7-3BCF-4D84-B965-93AE94F6A0F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC27BD10-1F90-4053-A7A0-2AE913CDE2B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC27BD10-1F90-4053-A7A0-2AE913CDE2B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC27BD10-1F90-4053-A7A0-2AE913CDE2B5}.Quick Debug|Any CPU.ActiveCfg = Quick Debug|Any CPU
+		{CC27BD10-1F90-4053-A7A0-2AE913CDE2B5}.Quick Debug|Any CPU.Build.0 = Quick Debug|Any CPU
+		{CC27BD10-1F90-4053-A7A0-2AE913CDE2B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC27BD10-1F90-4053-A7A0-2AE913CDE2B5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5FA1052D-A001-476F-A5A7-65216A959405}
+	EndGlobalSection
+EndGlobal
