@@ -9275,13 +9275,21 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
             dout.HiSideCharge.Disable();
             dout.HiSideEvac.Disable();
             dout.HiSideRecovery.Disable();
-            dout.HiSideToolStem.Disable();
             dout.ReversingValve.Disable();
 
             dout.LoSideCharge.Disable();
             dout.LoSideEvac.Disable();
             dout.LoSideRecovery.Disable();
-            dout.LoSideToolStem.Disable();
+            if (Config.Mode.StemPushersRetractedOnIdle.ProcessValue)
+            {
+                dout.LoSideToolStem.Disable();
+                dout.HiSideToolStem.Disable();
+            }
+            else
+            {
+                dout.LoSideToolStem.Enable();
+                dout.HiSideToolStem.Enable();
+            }
 
             Machine.Cycle[0].bDisableHiSideCharge = true;
             Machine.Cycle[0].bDisableLowSideCharge = true;
@@ -10991,6 +10999,10 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
                 }
                 else
                 {
+                    // Prevent writing negative charge weights
+                    if (Machine.Test[port].ActualChargeWeight < 0) 
+                        Machine.Test[port].ActualChargeWeight = 0;
+
                     //ActualTargetWeight
                     if (strConnectVTIToLennox != "")
                     {

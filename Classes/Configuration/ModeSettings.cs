@@ -758,6 +758,30 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes.Configuration
         }
         #endregion
 
+        #region StemPushersRetractedOnIdle : BooleanParameter
+        [UserScopedSetting()]
+        [XmlElement("BooleanParameter")]
+        [DefaultSettingValue(@"
+            <BooleanParameter>
+                <DisplayName>Stem Pushers Retracted On Idle</DisplayName>
+                <ProcessValue>true</ProcessValue>
+                <ToolTip>If enabled, the stem pushers on the process gun will be retracted when the system is idle.</ToolTip>
+            </BooleanParameter>
+        ")]
+        public BooleanParameter StemPushersRetractedOnIdle
+        {
+
+            get
+            {
+                return ((BooleanParameter)this["StemPushersRetractedOnIdle"]);
+            }
+            set
+            {
+                this["StemPushersRetractedOnIdle"] = (BooleanParameter)value;
+            }
+        }
+        #endregion
+
         #region RecoverStemsRetractedForceCharge : BooleanParameter
         [UserScopedSetting()]
         [XmlElement("BooleanParameter")]
