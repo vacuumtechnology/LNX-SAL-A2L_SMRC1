@@ -756,10 +756,34 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes.Configuration
                 this["ProductionModePlot"] = (BooleanParameter)value;
             }
         }
-        #endregion
+		#endregion
 
-        #region RecoverStemsRetractedForceCharge : BooleanParameter
-        [UserScopedSetting()]
+		#region UndockDataPlot : BooleanParameter
+		[UserScopedSetting()]
+		[XmlElement("BooleanParameter")]
+		[DefaultSettingValue(@"
+            <BooleanParameter>
+                <DisplayName>Undock Data Plot</DisplayName>
+                <ProcessValue>false</ProcessValue>
+                <ToolTip>Undock the Data Plot at start of the test in autorun.</ToolTip>
+            </BooleanParameter>
+        ")]
+		public BooleanParameter UndockDataPlot
+		{
+
+			get
+			{
+				return ((BooleanParameter)this["UndockDataPlot"]);
+			}
+			set
+			{
+				this["UndockDataPlot"] = (BooleanParameter)value;
+			}
+		}
+		#endregion
+
+		#region RecoverStemsRetractedForceCharge : BooleanParameter
+		[UserScopedSetting()]
         [XmlElement("BooleanParameter")]
         [DefaultSettingValue(@"
             <BooleanParameter>

@@ -183,13 +183,13 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes.IOClasses
             BluePartVacuummTorr = new AnalogSignal(Localization.AnalogSignalEvacPressure_mTorr, "mTorr", "0", 1500F, true, true);
             BluePartVacuum = new AnalogSignal(Localization.AnalogSignalEvacPressure,"Torr","0.0",-1,true,true);
             _port[0].PartVacuum = BluePartVacuum;
-            WhitePartVacuum = new AnalogSignal(Localization.AnalogSignalEvacPressure, 2F, false, true, IO.SerialIn.BlueEvacPressure);
+			WhitePartVacuum = new AnalogSignal(Localization.AnalogSignalEvacPressure,"Torr","0.0",-1,true,true);
 
-            ////CounterOutputs = new AnalogSignal("Counter Outputs", "", "0", -1, true, true);
-            //CounterOutputs = new AnalogSignal(Localization.AnalogSignalCounterOutputs, "", "0", -1, true, true);
+			////CounterOutputs = new AnalogSignal("Counter Outputs", "", "0", -1, true, true);
+			//CounterOutputs = new AnalogSignal(Localization.AnalogSignalCounterOutputs, "", "0", -1, true, true);
 
-            //BluePartCharge = new AnalogSignal("Part Charge", "oz", "0.00", -1, true, true);
-            BluePartCharge = new AnalogSignal(Localization.AnalogSignalPartCharge, Localization.AnalogSignaloz, "0.00", -1, true, true);
+			//BluePartCharge = new AnalogSignal("Part Charge", "oz", "0.00", -1, true, true);
+			BluePartCharge = new AnalogSignal(Localization.AnalogSignalPartCharge, Localization.AnalogSignaloz, "0.00", -1, true, true);
             BluePartChargeInPounds = new AnalogSignal(Localization.AnalogSignalPartCharge, Localization.AnalogSignallbs, "0.000", -1, true, true);
             //WhitePartCharge = new AnalogSignal("Part Charge", "oz", "0.00", -1, true, true);
             WhitePartCharge = new AnalogSignal(Localization.AnalogSignalPartCharge, Localization.AnalogSignaloz, "0.00", -1, true, true);

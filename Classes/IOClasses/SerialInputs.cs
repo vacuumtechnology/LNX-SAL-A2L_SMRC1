@@ -16,12 +16,6 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes.IOClasses
         //public TricorFlowmeterController BlueFlowmeterController;
 
         //public TricorFlowmeterController WhiteFlowmeterController;
-
-        public TorrConIII BlueEvacPressure;
-
-        public TorrConIII WhiteEvacPressure;
-
-        public TorrConIII CDGEvacPressure; 
         public BarcodeScanner Scanner;
 
         public SerialInputs()
@@ -35,26 +29,6 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes.IOClasses
             Scanner.SerialPort.ReadTimeout = 1000;
             Scanner.Start();
 
-            BlueEvacPressure = new TorrConIII
-            {
-                SerialPortParameter = Config.Control.BlueCircuit2EvacPressurePort,
-            };
-            //BlueEvacPressure.Start();
-
-            WhiteEvacPressure = new TorrConIII
-            {
-                SerialPortParameter = Config.Control.WhiteCircuit1EvacPressurePort,
-            };
-
-            CDGEvacPressure = new TorrConIII
-            {
-                SerialPortParameter = Config.Control.CDGEvacPressurePort,
-            };
-
-            if (Config.Mode.CDGInstalled.ProcessValue)
-            {
-                CDGEvacPressure.Start();
-            }
           //  WhiteEvacPressure.Start();
 
             //ZebraPrinter = new AthenaController(0, 1000, "K")
