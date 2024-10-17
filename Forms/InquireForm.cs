@@ -359,33 +359,25 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Forms
                     }
                     sw.WriteLine(strrow);
 
+                    // Add details for each record if box is checked
                     if (checkBoxIncludeDetails.Checked)
                     {
                         try
                         {
-                            string strConnectLennox = "";
-                            if (Config.Control.RemoteConnectionString_LennoxKeywords != "")
-                                strConnectLennox = Config.Control.RemoteConnectionString_LennoxKeywords;
-                            if (strConnectLennox.Length > 0)
-                                if (strConnectLennox.Substring(strConnectLennox.Length - 1) != ";" && strConnectLennox != "") strConnectLennox = strConnectLennox + ";";
-                            strConnectLennox = strConnectLennox + "Data Source = " + Config.Control.RemoteConnectionString_LennoxServerName.ProcessValue;
-                            strConnectLennox = strConnectLennox + "; Initial Catalog = " + Config.Control.RemoteConnectionString_LennoxDatabaseName.ProcessValue;
-                            if (Config.Control.RemoteConnectionString_LennoxLogin.ProcessValue != "") strConnectLennox = strConnectLennox + "; UID = " + Config.Control.RemoteConnectionString_LennoxLogin.ProcessValue;
-                            if (Config.Control.RemoteConnectionString_LennoxPassword.ProcessValue != "") strConnectLennox = strConnectLennox + "; PWD = " + Config.Control.RemoteConnectionString_LennoxPassword.ProcessValue;
-
+                            
                             string strConnectVTI = Config.Control.RemoteConnectionString_VTIToLennox.ProcessValue;
 
                             String sqlCmd = string.Format(
-                        "select * from dbo.UutRecordDetails where UutRecordID = '{0}'", dataGridViewUUTRecords2.Rows[irow].Cells[1].Value.ToString());
+                                "select * from dbo.UutRecordDetails where UutRecordID = '{0}'", dataGridViewUUTRecords2.Rows[irow].Cells[1].Value.ToString());
 
                             SqlCommand cmd = new SqlCommand(sqlCmd);
                             cmd.Connection = new SqlConnection(strConnectVTI);
                             cmd.Connection.Open();
                             SqlDataReader reader = cmd.ExecuteReader();
-                            while (reader.Read())
+                            while (reader.Read()) // iterate through rows of db
                             {
                                 sw.Write("\t");
-                                for (int i = 2; i < reader.FieldCount; i++)
+                                for (int i = 2; i < reader.FieldCount; i++) // iterate through cells in row
                                 {
                                     sw.Write(reader[i].ToString() + ", ");
                                 }

@@ -165,17 +165,9 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes.IOClasses
                     //Machine.ManualCommands.Hide();
                     // close all valves
                     IO.DOut.EvacPumpEnable.Disable();
-                    //IO.DOut.LowSideEvacPump.Disable();
-
                     IO.DOut.BlueCircuit2HiSideEvac.Disable();
                     IO.DOut.BlueCircuit2HiSideRecovery.Disable();
                     IO.DOut.BlueCircuit2HiSideToolStem.Disable();
-                    if (Properties.Settings.Default.DualPortSystem)
-                    {
-                        ////IO.DOut.WhiteCircuit1HiSideEvac.Disable();
-                        ////IO.DOut.WhiteCircuit1HiSideRecovery.Disable();
-                        ////IO.DOut.WhiteCircuit1HiSideToolStem.Disable();
-                    }
 
                     Machine.Cycle[0].bDisableHiSideCharge = true;
                     Machine.Cycle[0].bDisableLowSideCharge = true;

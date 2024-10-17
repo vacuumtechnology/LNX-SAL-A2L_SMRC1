@@ -952,8 +952,9 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Forms
 				{
 					Machine.Cycle[0].bLoadHiSideCounter = false;
 					IO.AOut.BlueCircuit2HiSideStartCountValue.Value = Convert.ToDouble(Machine.Test[0].LoadHiSideCounter) / 3276.8;
+					Machine.Test[0].LastHiCounterWriteTime = DateTime.Now;
 				}
-				else
+				else if((DateTime.Now - Machine.Test[0].LastHiCounterWriteTime).TotalSeconds > .5) // Delay by .5 to make sure PLC sees value before it resets to 0
 				{
 					if(IO.AOut.BlueCircuit2HiSideStartCountValue.Value > 0.0001)
 					{
@@ -964,8 +965,9 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Forms
 				{
 					Machine.Cycle[0].bLoadLowSideCounter = false;
 					IO.AOut.BlueCircuit2LoSideStartCountValue.Value = Convert.ToDouble(Machine.Test[0].LoadLowSideCounter) / 3276.8;
+					Machine.Test[0].LastLoCounterWriteTime = DateTime.Now;
 				}
-				else
+				else if((DateTime.Now - Machine.Test[0].LastLoCounterWriteTime).TotalSeconds > .5) // Delay by .5 to make sure PLC sees value before it resets to 0
 				{
 					if(IO.AOut.BlueCircuit2LoSideStartCountValue.Value > 0.0001)
 					{

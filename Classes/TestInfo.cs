@@ -5,6 +5,8 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
 {
     public class TestInfo
     {
+		public DateTime LastHiCounterWriteTime = DateTime.Now;
+		public DateTime LastLoCounterWriteTime = DateTime.Now;
 
 		public bool InitialRecoveryPassed { get; set; }
 		public double InitialRecoveryPressure { get; set; }
