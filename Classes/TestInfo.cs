@@ -5,7 +5,10 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
 {
     public class TestInfo
     {
-        public double VerificationMeasuredFlow { get; set; }
+
+		public bool InitialRecoveryPassed { get; set; }
+		public double InitialRecoveryPressure { get; set; }
+		public double VerificationMeasuredFlow { get; set; }
         public double PDStartPressure { get; set; }
         public double PDEndPressure { get; set; }
         public double PDTestPressureDrop { get; set; }

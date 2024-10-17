@@ -315,10 +315,65 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes.Configuration
                 this["ROR_Pressure_Check_Pressure_SetPointt"] = (NumericParameter)value;
             }
         }
-        #endregion
+		#endregion
 
-        #region Recovery_Pressure_SetPoint : NumericParameter
-        [UserScopedSetting()]
+		#region Initial_Recovery_Setpoint : NumericParameter
+		[UserScopedSetting()]
+		[XmlElement("NumericParameter")]
+		[DefaultSettingValue(@"
+	    <NumericParameter>
+	        <DisplayName>Initial Recovery Pressure Set Point</DisplayName>
+	        <ProcessValue>50</ProcessValue>    
+	        <MinValue>0</MinValue>
+	        <MaxValue>1000</MaxValue>
+	        <SmallStep>.001</SmallStep>
+	        <LargeStep>1</LargeStep>
+	        <Units>Psig</Units>
+	        <ToolTip>The tool pressure must be below the Initial Recovery Setpoint before the Initial Recovery Timeout to pass the recovery cycle step.</ToolTip>
+	    </NumericParameter>
+	")]
+		public NumericParameter Initial_Recovery_Setpoint
+		{
+			get
+			{
+				return ((NumericParameter)this["Initial_Recovery_Setpoint"]);
+			}
+			set
+			{
+				this["Initial_Recovery_Setpoint"] = (NumericParameter)value;
+			}
+		}
+		#endregion
+		#region Initial_Recovery_Timeout : TimeDelayParameter
+		[UserScopedSetting()]
+		[XmlElement("TimeDelayParameter")]
+		[DefaultSettingValue(@"
+	    <TimeDelayParameter>
+	        <DisplayName>Initial Recovery Timeout</DisplayName>
+	        <ProcessValue>10</ProcessValue>
+	        <MinValue>0</MinValue>
+	        <MaxValue>6000</MaxValue>
+	        <SmallStep>0.1</SmallStep>
+	        <LargeStep>10</LargeStep>
+	        <Units>Seconds</Units>
+	        <ToolTip>Time allowed to recover refrigerant to Initial Recovery Pressure Setpoint in order to pass recovery.</ToolTip>
+	    </TimeDelayParameter>
+	")]
+		public TimeDelayParameter Initial_Recovery_Timeout
+		{
+			get
+			{
+				return ((TimeDelayParameter)this["Initial_Recovery_Timeout"]);
+			}
+			set
+			{
+				this["Initial_Recovery_Timeout"] = (TimeDelayParameter)value;
+			}
+		}
+		#endregion
+
+		#region Recovery_Pressure_SetPoint : NumericParameter
+		[UserScopedSetting()]
         [XmlElement("NumericParameter")]
         [DefaultSettingValue(@"
             <NumericParameter>

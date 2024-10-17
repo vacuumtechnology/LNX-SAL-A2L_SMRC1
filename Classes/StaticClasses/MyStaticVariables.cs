@@ -78,7 +78,12 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
 
         public static DateTime dtGoodRecoveryPressureStart=DateTime.Now;
 
-        public static double MilesToKilo(double miles)
+		public static List<double> TimeTo50PsiBlue = new List<double>();
+		public static List<double> EndingRecoveryPressBlue = new List<double>();
+		public static DateTime RecoveryStartBlue;
+		public static DateTime RecoveryAbove50PsiBlue;
+
+		public static double MilesToKilo(double miles)
         {
             // This method can be accessed through the class name MyStaticVariables not through an instance of MyStaticVariables and is always available
             // No instantiation is needed
