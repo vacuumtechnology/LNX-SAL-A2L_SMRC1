@@ -6,6 +6,7 @@ using System.Text;
 using VTIWindowsControlLibrary.Classes.IO;
 using VTIWindowsControlLibrary.Classes.IO.Interfaces;
 using VTI_EVAC_AND_SINGLE_CHARGE.Classes.Configuration;
+using System.Drawing;
 
 
 namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes.IOClasses
@@ -161,6 +162,12 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes.IOClasses
             {
                 try
                 {
+                    if (Machine.Test[0].SerialNumber != "")
+                    {
+                        //Machine.Cycle[0].UutRecord.TestResult = "ESTOP";
+                        Machine.TestHistory[0].AddEntry("ESTOP", Color.Black, Color.Yellow);
+                        Machine.Test[0].Result = "ESTOP";
+                    }
                     // hide manual commands window
                     //Machine.ManualCommands.Hide();
                     // close all valves
