@@ -59,6 +59,7 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
           WaitForOtherROR,
           RepeatEvac,
           HoseFillDelay,
+          HoseRecoveryDelay,
           HiSideCharge,
           LowSideCharge,
           ToolDrainDelay,
@@ -355,6 +356,13 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
             HoseFillDelay.Tick += HoseFillDelay_Tick;
             HoseFillDelay.Elapsed += HoseFillDelay_Elapsed;
             HoseFillDelay.Passed += HoseFillDelay_Passed;
+
+            HoseRecoveryDelay = new CycleStep
+            {
+                Prompt = "Hose Recovery Delay"
+            };
+            HoseRecoveryDelay.Tick += HoseRecoveryDelay_Tick;
+            HoseRecoveryDelay.Passed += HoseRecoveryDelay_Passed;
 
             RepeatEvac = new CycleStep
             {
@@ -1044,6 +1052,16 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
 
             this.Init();
             // End 
+        }
+
+        private void HoseRecoveryDelay_Passed(CycleStep step, CycleStep.CycleStepEventArgs e)
+        {
+            ChargeHoseChargeToolRecovery.Start();
+        }
+
+        private void HoseRecoveryDelay_Tick(CycleStep step, CycleStep.CycleStepEventArgs e)
+        {
+            if (step.ElapsedTime.TotalSeconds > 1) step.Pass();
         }
 
         private void TurnOnReversingValve_Passed(CycleStep step, CycleStep.CycleStepEventArgs e)
@@ -3266,8 +3284,8 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
         void RecoverUnit_Passed(CycleStep step, CycleStep.CycleStepEventArgs e)
         {
             Machine.Test[port].Result = "RECOVERY PASSED";
-            ChargeHoseChargeToolRecovery.Start();
-            
+            if (ChargeHoseChargeToolRecovery.State != CycleStepState.InProcess && HoseRecoveryDelay.State != CycleStepState.InProcess) HoseRecoveryDelay.Start();
+
         }
 
         void RecoverUnit_Tick(CycleStep step, CycleStep.CycleStepEventArgs e)
@@ -3477,20 +3495,20 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
 
             if (Machine.Test[port].FailToolRecoveryFlag)
             {
-                ChargeHoseChargeToolRecovery.Start();
+                if (ChargeHoseChargeToolRecovery.State != CycleStepState.InProcess && HoseRecoveryDelay.State != CycleStepState.InProcess) HoseRecoveryDelay.Start();
             }
             else
             {
                 if ((Machine.Test[port].RecoverHiSideFlag) || (Machine.Test[port].RecoverLowSideFlag))
                 {
-                        if (Config.Mode.InsertValveCoresAfterChargeEnabled.ProcessValue)
-                        {
-                            InsertValveCores.Start();
-                        }
-                        else
-                        {
-                            ChargeHoseChargeToolRecovery.Start();
-                        }
+                    if (Config.Mode.InsertValveCoresAfterChargeEnabled.ProcessValue)
+                    {
+                        InsertValveCores.Start();
+                    }
+                    else
+                    {
+                        if (ChargeHoseChargeToolRecovery.State != CycleStepState.InProcess && HoseRecoveryDelay.State != CycleStepState.InProcess) HoseRecoveryDelay.Start();
+                    }
                     
                 }
                 else
@@ -3503,7 +3521,7 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
         void InsertValveCores_Passed(CycleStep step, CycleStep.CycleStepEventArgs e)
         {
             IO.DOut.BlueCircuit2Alarm.Disable();
-            ChargeHoseChargeToolRecovery.Start();
+            if (ChargeHoseChargeToolRecovery.State != CycleStepState.InProcess && HoseRecoveryDelay.State != CycleStepState.InProcess) HoseRecoveryDelay.Start();
         }
 
         void InsertValveCores_Tick(CycleStep step, CycleStep.CycleStepEventArgs e)
@@ -6194,7 +6212,7 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
                                     dout.HiSideToolStem.Disable();
                                     dout.LoSideToolStem.Disable();
                                     Thread.Sleep(1000);
-                                    ChargeHoseChargeToolRecovery.Start();
+                                    if (ChargeHoseChargeToolRecovery.State != CycleStepState.InProcess && HoseRecoveryDelay.State != CycleStepState.InProcess) HoseRecoveryDelay.Start();
                                     return;
                                 }
                                 else
@@ -6258,7 +6276,7 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
                                     dout.HiSideToolStem.Disable();
                                     dout.LoSideToolStem.Disable();
                                     Thread.Sleep(1000);
-                                    ChargeHoseChargeToolRecovery.Start();
+                                    if (ChargeHoseChargeToolRecovery.State != CycleStepState.InProcess && HoseRecoveryDelay.State != CycleStepState.InProcess) HoseRecoveryDelay.Start();
                                     return;
                                 }
                                 else
@@ -6345,7 +6363,7 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
 
         void WaitForAcknowledgePostCharge_Passed(CycleStep step, CycleStep.CycleStepEventArgs e)
         {
-            ChargeHoseChargeToolRecovery.Start();
+            if (ChargeHoseChargeToolRecovery.State != CycleStepState.InProcess && HoseRecoveryDelay.State != CycleStepState.InProcess) HoseRecoveryDelay.Start();
         }
 
         void WaitForAcknowledgePostCharge_Tick(CycleStep step, CycleStep.CycleStepEventArgs e)
@@ -9374,7 +9392,7 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
                 if ((IO.Signals.BlueHiSideToolPressure.Value > Config.Pressure.RecoverOnResetSetpoint.ProcessValue && IO.Signals.BlueHiSideToolPressure.Value > model.Recovery_Pressure_SetPoint.ProcessValue) ||
                     (IO.Signals.BlueLoSideToolPressure > Config.Pressure.RecoverOnResetSetpoint.ProcessValue && IO.Signals.BlueLoSideToolPressure.Value > model.Recovery_Pressure_SetPoint.ProcessValue))
                 {
-                    ChargeHoseChargeToolRecovery.Start();
+                    if (ChargeHoseChargeToolRecovery.State != CycleStepState.InProcess && HoseRecoveryDelay.State != CycleStepState.InProcess) HoseRecoveryDelay.Start();
                 }
                 else
                 {
