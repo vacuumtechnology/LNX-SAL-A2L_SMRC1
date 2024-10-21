@@ -42,6 +42,8 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
         public double CapRRORPressure { get; set; }
         public double CapRLeakRate { get; set; }
         public bool OpenRecovB4Reset { get; set; }
+        public string PreviousSystemID { get; set; }
+        public DateTime PreviousSystemEndDateTime { get; set; }
 
 
         public string TestResultToSendToRemoteSQLDatabase { get; set; }
@@ -155,6 +157,8 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
         public string RORResult;
         public string ChargeResult;
         public string RecoveryResult;
+
+        public double StartInitialEvacPressure;
 
         public double InitialEvacTime;
         public double InitialEvacSetpoint;

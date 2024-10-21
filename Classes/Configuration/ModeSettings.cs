@@ -968,6 +968,31 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes.Configuration
 				this["UseNewStatusCheckStoredProcedure"] = (BooleanParameter)value;
 			}
 		}
-		#endregion
-	}
+        #endregion
+
+        #region QueryForPreviousSystem : BooleanParameter
+        [UserScopedSetting()]
+        [XmlElement("BooleanParameter")]
+        [DefaultSettingValue(@"
+            <BooleanParameter>
+                <DisplayName>Query For Previous System</DisplayName>
+                <ProcessValue>true</ProcessValue>
+                <ToolTip>Run a query to get data about the previous system that the part was on including System ID and idle time.</ToolTip>
+            </BooleanParameter>
+        ")]
+        public BooleanParameter QueryForPreviousSystem
+        {
+
+            get
+            {
+                return ((BooleanParameter)this["QueryForPreviousSystem"]);
+            }
+            set
+            {
+                this["QueryForPreviousSystem"] = (BooleanParameter)value;
+            }
+        }
+        #endregion
+
+    }
 }

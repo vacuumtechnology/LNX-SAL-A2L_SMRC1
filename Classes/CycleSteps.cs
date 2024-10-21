@@ -4537,25 +4537,34 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
             }
         }
 
+        bool firstTime;
         void InitialEvac_Tick(CycleStep step, CycleStep.CycleStepEventArgs e)
         {
-            Machine.Test[port].InitialEvacTime = step.ElapsedTime.TotalSeconds;
-            Machine.Test[port].InitialEvacPressure = IO.Signals.BluePartVacuummTorr.Value;
-            //fail on a high intial evac fault, quit early if the pressure goes low
-            if (step.ElapsedTime.TotalSeconds > model.Initial_Evac_Delay.ProcessValue)
+            if (step.ElapsedTime.TotalSeconds > 2)
             {
-                if (IO.Signals.BluePartVacuummTorr.Value > model.Initial_Evac_Pressure_SetPointt.ProcessValue)
+                if (firstTime)
                 {
-                    AppendToToolTip($"Initial Evac: After {step.ElapsedTime.TotalSeconds:0.0}s, {IO.Signals.BluePartVacuummTorr.Value:0.0} > {model.Initial_Evac_Pressure_SetPointt.ProcessValue:0.0}");
-                    step.Fail();
+                    Machine.Test[port].StartInitialEvacPressure = IO.Signals.BluePartVacuum.Value;
+                    firstTime = false;
                 }
-                else
+                Machine.Test[port].InitialEvacTime = step.ElapsedTime.TotalSeconds;
+                Machine.Test[port].InitialEvacPressure = IO.Signals.BluePartVacuummTorr.Value;
+                //fail on a high intial evac fault, quit early if the pressure goes low
+                if (step.ElapsedTime.TotalSeconds > model.Initial_Evac_Delay.ProcessValue)
                 {
-
-                    if (IO.Signals.BluePartVacuummTorr.Value < model.Final_Evac_Pressure_SetPointt.ProcessValue)
+                    if (IO.Signals.BluePartVacuummTorr.Value > model.Initial_Evac_Pressure_SetPointt.ProcessValue)
                     {
-                        AppendToToolTip($"Initial Evac: {IO.Signals.BluePartVacuummTorr.Value:0.0} < {model.Final_Evac_Pressure_SetPointt.ProcessValue}");
-                        step.Pass();
+                        AppendToToolTip($"Initial Evac: After {step.ElapsedTime.TotalSeconds:0.0}s, {IO.Signals.BluePartVacuummTorr.Value:0.0} > {model.Initial_Evac_Pressure_SetPointt.ProcessValue:0.0}");
+                        step.Fail();
+                    }
+                    else
+                    {
+
+                        if (IO.Signals.BluePartVacuummTorr.Value < model.Final_Evac_Pressure_SetPointt.ProcessValue)
+                        {
+                            AppendToToolTip($"Initial Evac: {IO.Signals.BluePartVacuummTorr.Value:0.0} < {model.Final_Evac_Pressure_SetPointt.ProcessValue}");
+                            step.Pass();
+                        }
                     }
                 }
             }
@@ -4563,6 +4572,7 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
 
         void InitialEvac_Started(CycleStep step, CycleStep.CycleStepEventArgs e)
         {
+            firstTime = true;
             step.SignalsToDisplay.Add(signal.PartVacuummTorr);
             step.ParametersToDisplay.Add(model.Final_Evac_Pressure_SetPointt);
             Machine.Test[port].InitialEvacSetpoint = model.Initial_Evac_Delay.ProcessValue;
@@ -4572,10 +4582,6 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
             Machine.Test[port].UsingRoughPumpForToolCheckFlag = false;
 
             MyStaticVariables.EvacStartTime = DateTime.Now;
-
-            
-            
-
 
             if (port == Port.Blue)
             {
@@ -9973,6 +9979,12 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
 						cmd.Parameters["PROCESS_STATUS"].Direction = ParameterDirection.Input;
 						if(Machine.Test[port].TestResultToSendToRemoteSQLDatabase == "") // If reset occurs value may be null
 							Machine.Test[port].TestResultToSendToRemoteSQLDatabase = Config.Control.StatusWriteFailValue.ProcessValue;
+                        
+                        if (Machine.Test[port].TestResultToSendToRemoteSQLDatabase == Config.Control.StatusWriteFailValue.ProcessValue && (Machine.Test[0].Result.ToUpper().Contains("PASS") || Machine.Test[0].Result.ToUpper().Contains("ACEPTABLE")))
+                        {
+                            TestResult = "Failed - " + Machine.Test[port].TestResultToSendToRemoteSQLDatabase;
+                        }
+
 						cmd.Parameters["PROCESS_STATUS"].Value = Machine.Test[port].TestResultToSendToRemoteSQLDatabase;
 						cmd.Parameters["PROCESS_STATUS"].Size = 10;
 
@@ -10077,9 +10089,8 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
 			}
 			TestNumber = TestNumber + 1;
 
-
-			//Store to UutRecords, and read back the identity to be used for the RESULTS_ID and UutRecordID references to status and detail tables
-			if(Machine.Test[port].ModelNumber == "")
+            //Store to UutRecords, and read back the identity to be used for the RESULTS_ID and UutRecordID references to status and detail tables
+            if (Machine.Test[port].ModelNumber == "")
 			{
 				Machine.Test[port].ModelNumber = "DEFAULT";
 			}
@@ -10170,16 +10181,50 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
 				}
 			}
 
-			// This does not work --- TAS 6/10/2022
-			//if not UutRecordID, generate one from the last record
-			//if (Machine.Test[port].UutRecordID == "")  
-			//{
-			//    Machine.Test[port].UutRecordID = string.Format("{0:0}", Machine.Test[port].LastUutRecordID + 1);                    
-			//}
-			//Machine.Test[port].LastUutRecordID = Convert.ToInt64(Machine.Test[port].UutRecordID);
+            if (Config.Mode.QueryForPreviousSystem)
+            {
+                //read previous system used
+                if (strConnectVTIToLennox != "")
+                {
+                    try
+                    {
+                        SqlConnection sqlConnection2 = new SqlConnection(strConnectVTIToLennox);
+                        SqlCommand cmd = new SqlCommand();
+                        SqlDataReader returnValue;
+
+                        //string sCommandText = string.Format("Select SystemID, DateTime from dbo.UutRecords where SerialNo = '{0}' and SystemID != '{1}' order by DateTime desc", Machine.Test[port].SerialNumber, Config.Control.System_ID.ProcessValue);
+                        string sCommandText = string.Format("SELECT u.SystemID, MAX(urd.DateTime) AS LatestDetailDateTime FROM UutRecords u JOIN UutRecordDetails urd ON u.ID = urd.UutRecordID WHERE u.SerialNo = '{0}' AND u.SystemID != '{1}' AND u.DateTime = (SELECT MAX(DateTime) FROM UutRecords WHERE SerialNo = '{0}' AND SystemID != '{1}') GROUP BY u.SystemID", Machine.Test[port].SerialNumber, Config.Control.System_ID.ProcessValue);
+                        cmd.CommandText = sCommandText;
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Connection = sqlConnection2;
+
+                        sqlConnection2.Open();
+                        returnValue = cmd.ExecuteReader();
+                        sqlConnection2.Close();
+
+                        returnValue.Read();
+                        Machine.Test[port].PreviousSystemID = returnValue["SystemID"].ToString();
+                        Machine.Test[port].PreviousSystemEndDateTime = DateTime.Parse(returnValue["LatestDetailDateTime"].ToString());
+                        returnValue.Close();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+            }
+
+            // This does not work --- TAS 6/10/2022
+            //if not UutRecordID, generate one from the last record
+            //if (Machine.Test[port].UutRecordID == "")  
+            //{
+            //    Machine.Test[port].UutRecordID = string.Format("{0:0}", Machine.Test[port].LastUutRecordID + 1);                    
+            //}
+            //Machine.Test[port].LastUutRecordID = Convert.ToInt64(Machine.Test[port].UutRecordID);
 
 
-			if(Machine.Test[port].UutRecordID != "")
+            if (Machine.Test[port].UutRecordID != "")
 			{
 				//Call Lennox Stored Procedure ProcessStatusXRef if a coil
 				if(Machine.Test[port].ForceChargeFlag || Machine.Test[port].RecoverUnitFlag)
@@ -10301,10 +10346,10 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
 				Console.WriteLine(Ex.Message);
 			}
 
-			//Store to UutRecordDetails
+            //Store to UutRecordDetails
 
-			//PrechargePressureCheck
-			if(Machine.Test[port].PreChargeUnitPressCheckResult != "Not Run")
+            //PrechargePressureCheck
+            if (Machine.Test[port].PreChargeUnitPressCheckResult != "Not Run")
 			{
 
 				//PreChargeUnitPressCheck
@@ -10415,11 +10460,115 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
 
 			}
 
-
-			if(Machine.Test[port].InitialEvacResult != "Not Run")
+            if (Machine.Test[port].InitialEvacResult != "Not Run")
 			{
-				//InitialEvacTime
-				if(strConnectVTIToLennox != "")
+                if (Config.Mode.QueryForPreviousSystem)
+                {
+                    //Previous System
+                    if (strConnectVTIToLennox != "")
+                    {
+                        try
+                        {
+                            //SqlConnection sqlConnection2 = new SqlConnection(strConnectLennox);
+                            //SqlCommand cmd = new SqlCommand();
+                            Config.Control.TestResultTableName.ProcessValue = "UutRecordDetails";
+                            // Set the test result and write the records
+                            String strSqlCmd =
+                    "insert into " + Config.Control.TestResultTableName.ProcessValue + " " +
+                    //"insert into dbo.TestResult "+
+                    "(UutRecordID, DateTime, Test, Result, ValueName, Value, MinSetpointName, MinSetpoint, MaxSetpointName, MaxSetpoint, Units, ElapsedTime) " +
+                    "values('" + Machine.Test[port].UutRecordID + "', '" +
+                     DateTime.Now.ToString() + "', '" +
+                     "Previous System" + "', '" +
+                     Machine.Test[port].PreviousSystemID + "', '" +
+                     "Time Since Last System" + "', '" +
+                     string.Format("{0:0.0}", (MyStaticVariables.EvacStartTime - Machine.Test[port].PreviousSystemEndDateTime).TotalMinutes) + "', '" +
+                     "NoMinSetPoint" + "', '" +
+                     "0.0" + "', '" +
+                     "MaxEvacDelaySetpoint" + "', '" +
+                     "0.0" + "', '" +
+                     "minutes" + "', '" +
+                      string.Format("{0:0.0}", (MyStaticVariables.EvacStartTime - Machine.Test[port].PreviousSystemEndDateTime).TotalMinutes) + "')";
+                            Console.WriteLine(strSqlCmd);
+
+                            fnInsertATestRecord(strConnectVTIToLennox, strSqlCmd);
+                            if (Config.Control.RemoteConnectionString_VTI.ProcessValue != "")
+                            {
+                                fnInsertATestRecord(Config.Control.RemoteConnectionString_VTI.ProcessValue, strSqlCmd);
+                            }
+
+                            //cmd.CommandText = strSqlCmd;
+                            //cmd.CommandType = CommandType.Text;
+                            //cmd.Connection = sqlConnection2;
+
+                            //sqlConnection2.Open();
+
+                            //cmd.ExecuteNonQuery();
+
+
+                            //sqlConnection2.Close();
+                        }
+                        catch (Exception Ex)
+                        {
+                            Console.WriteLine(Ex.Message);
+                            VtiEvent.Log.WriteError(Ex.Message);
+                        }
+                    }
+
+                    //Start Initial Evac Pressure
+                    if (strConnectVTIToLennox != "")
+                    {
+                        try
+                        {
+                            //SqlConnection sqlConnection2 = new SqlConnection(strConnectLennox);
+                            //SqlCommand cmd = new SqlCommand();
+                            Config.Control.TestResultTableName.ProcessValue = "UutRecordDetails";
+                            // Set the test result and write the records
+                            String strSqlCmd =
+                    "insert into " + Config.Control.TestResultTableName.ProcessValue + " " +
+                    //"insert into dbo.TestResult "+
+                    "(UutRecordID, DateTime, Test, Result, ValueName, Value, MinSetpointName, MinSetpoint, MaxSetpointName, MaxSetpoint, Units, ElapsedTime) " +
+                    "values('" + Machine.Test[port].UutRecordID + "', '" +
+                     DateTime.Now.ToString() + "', '" +
+                     "InitialEvac" + "', '" +
+                     Machine.Test[port].InitialEvacResult + "', '" +
+                     "Starting Initial Evac Pressure" + "', '" +
+                     string.Format("{0:0.00E0}", Machine.Test[port].StartInitialEvacPressure) + "', '" +
+                     "NoMinSetPoint" + "', '" +
+                     "0.0" + "', '" +
+                     "MaxEvacDelaySetpoint" + "', '" +
+                     "0.0" + "', '" +
+                     "Torr" + "', '" +
+                      string.Format("{0:0.0}", Machine.Test[port].InitialEvacTime) + "')";
+                            Console.WriteLine(strSqlCmd);
+
+                            fnInsertATestRecord(strConnectVTIToLennox, strSqlCmd);
+                            if (Config.Control.RemoteConnectionString_VTI.ProcessValue != "")
+                            {
+                                fnInsertATestRecord(Config.Control.RemoteConnectionString_VTI.ProcessValue, strSqlCmd);
+                            }
+
+                            //cmd.CommandText = strSqlCmd;
+                            //cmd.CommandType = CommandType.Text;
+                            //cmd.Connection = sqlConnection2;
+
+                            //sqlConnection2.Open();
+
+                            //cmd.ExecuteNonQuery();
+
+
+                            //sqlConnection2.Close();
+                        }
+                        catch (Exception Ex)
+                        {
+                            Console.WriteLine(Ex.Message);
+                            VtiEvent.Log.WriteError(Ex.Message);
+                        }
+                    }
+                }
+
+                //InitialEvacTime
+                if (strConnectVTIToLennox != "")
 				{
 					try
 					{
@@ -10509,8 +10658,60 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
 					}
 				}
 
-				//InitialEvacSetpoint
-				if(strConnectVTIToLennox != "")
+                //InitialEvacSetpoint
+                if (strConnectVTIToLennox != "")
+                {
+                    try
+                    {
+                        //SqlConnection sqlConnection2 = new SqlConnection(strConnectLennox);
+                        //SqlCommand cmd = new SqlCommand();
+                        Config.Control.TestResultTableName.ProcessValue = "UutRecordDetails";
+                        // Set the test result and write the records
+                        String strSqlCmd =
+                "insert into " + Config.Control.TestResultTableName.ProcessValue + " " +
+                //"insert into dbo.TestResult "+
+                "(UutRecordID, DateTime, Test, Result, ValueName, Value, MinSetpointName, MinSetpoint, MaxSetpointName, MaxSetpoint, Units, ElapsedTime) " +
+                "values('" + Machine.Test[port].UutRecordID + "', '" +
+                 DateTime.Now.ToString() + "', '" +
+                 "InitialEvac" + "', '" +
+                 Machine.Test[port].InitialEvacResult + "', '" +
+                 "StartInitialEvacPressure" + "', '" +
+                 string.Format("{0:0}", Machine.Test[port].StartInitialEvacPressure) + "', '" +
+                 "NoMinSetPoint" + "', '" +
+                 "0.0" + "', '" +
+                 "InitialEvacSetpoint" + "', '" +
+                 string.Format("{0:0}", Machine.Test[port].InitialEvacSetpoint) + "', '" +
+                 "microns" + "', '" +
+                  string.Format("{0:0.0}", Machine.Test[port].InitialEvacTime) + "')";
+                        Console.WriteLine(strSqlCmd);
+
+                        fnInsertATestRecord(strConnectVTIToLennox, strSqlCmd);
+                        if (Config.Control.RemoteConnectionString_VTI.ProcessValue != "")
+                        {
+                            fnInsertATestRecord(Config.Control.RemoteConnectionString_VTI.ProcessValue, strSqlCmd);
+                        }
+
+
+                        //cmd.CommandText = strSqlCmd;
+                        //cmd.CommandType = CommandType.Text;
+                        //cmd.Connection = sqlConnection2;
+
+                        //sqlConnection2.Open();
+
+                        //cmd.ExecuteNonQuery();
+
+
+                        //sqlConnection2.Close();
+                    }
+                    catch (Exception Ex)
+                    {
+                        Console.WriteLine(Ex.Message);
+                        VtiEvent.Log.WriteError(Ex.Message);
+                    }
+                }
+
+                //InitialEvacSetpoint
+                if (strConnectVTIToLennox != "")
 				{
 					try
 					{
