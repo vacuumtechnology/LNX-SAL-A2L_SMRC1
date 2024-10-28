@@ -80,9 +80,9 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes.Configuration
         [DefaultSettingValue(@"
             <NumericParameter>
                 <DisplayName>Ref1 Flowmeter Counts Per Ounce</DisplayName>
-                <ProcessValue>50.113</ProcessValue>
-                <MinValue>0</MinValue>
-                <MaxValue>1000</MaxValue>
+                <ProcessValue>20</ProcessValue>
+                <MinValue>10</MinValue>
+                <MaxValue>30</MaxValue>
                 <SmallStep>0.001</SmallStep>
                 <LargeStep>1</LargeStep>
                 <Units>counts</Units>
@@ -189,9 +189,9 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes.Configuration
         [DefaultSettingValue(@"
             <NumericParameter>
                 <DisplayName>Ref2 Flowmeter Counts Per Ounce</DisplayName>
-                <ProcessValue>50.109</ProcessValue>
-                <MinValue>0</MinValue>
-                <MaxValue>1000</MaxValue>
+                <ProcessValue>20</ProcessValue>
+                <MinValue>10</MinValue>
+                <MaxValue>30</MaxValue>
                 <SmallStep>0.001</SmallStep>
                 <LargeStep>1</LargeStep>
                 <Units>counts</Units>
@@ -371,60 +371,6 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes.Configuration
             set
             {
                 this["Minimum_Flowmeter_Rate"] = (NumericParameter)value;
-            }
-        }
-        #endregion
-        #region MaximumChargeWeightError : NumericParameter
-        [UserScopedSetting()]
-        [XmlElement("NumericParameter")]
-        [DefaultSettingValue(@"
-            <NumericParameter>
-                <DisplayName>Maximum Charge Weight Error</DisplayName>
-                <ProcessValue>1</ProcessValue>
-                <MinValue>0.01</MinValue>
-                <MaxValue>5</MaxValue>
-                <SmallStep>0.01</SmallStep>
-                <LargeStep>0.1</LargeStep>
-                <Units>oz charge</Units>
-                <ToolTip>Maximum Charge Weight Error above the Target Weight.</ToolTip>
-            </NumericParameter>
-        ")]
-        public NumericParameter MaximumChargeWeightError
-        {
-            get
-            {
-                return ((NumericParameter)this["MaximumChargeWeightError"]);
-            }
-            set
-            {
-                this["MaximumChargeWeightError"] = (NumericParameter)value;
-            }
-        }
-        #endregion
-        #region MinimumChargeWeightError : NumericParameter
-        [UserScopedSetting()]
-        [XmlElement("NumericParameter")]
-        [DefaultSettingValue(@"
-            <NumericParameter>
-                <DisplayName>Minimum Charge Weight Error</DisplayName>
-                <ProcessValue>1</ProcessValue>
-                <MinValue>0.01</MinValue>
-                <MaxValue>5</MaxValue>
-                <SmallStep>0.01</SmallStep>
-                <LargeStep>0.1</LargeStep>
-                <Units>oz charge</Units>
-                <ToolTip>Minimum Charge Weight Error BELOW the Target Weight.</ToolTip>
-            </NumericParameter>
-        ")]
-        public NumericParameter MinimumChargeWeightError
-        {
-            get
-            {
-                return ((NumericParameter)this["MinimumChargeWeightError"]);
-            }
-            set
-            {
-                this["MinimumChargeWeightError"] = (NumericParameter)value;
             }
         }
         #endregion

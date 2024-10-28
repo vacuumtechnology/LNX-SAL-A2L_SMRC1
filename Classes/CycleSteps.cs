@@ -3809,17 +3809,13 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
             CycleNoTest(Localization.HiSideToolCheckFailed, Localization.HiSideToolCheckFailed);
             if (port == Port.Blue)
             {
-                if (Config.Mode.WhiteCircuit1PortEnabled.ProcessValue)
-                {
-                    Machine.Cycle[1].Reset.Start();
-                }
+                    Machine.Cycle[0].Reset.Start();
+                
             }
             else
             {
-                if (Config.Mode.BlueCircuit2PortEnabled.ProcessValue)
-                {
-                    Machine.Cycle[0].Reset.Start();
-                }
+                    Machine.Cycle[1].Reset.Start();
+                
             }
         }
 
@@ -6195,7 +6191,7 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
                     }
                     else
                     {
-                        if ((Machine.Test[port].ChargeCalculatedWeight < (model.TotalCharge.ProcessValue - (model.MinimumChargeWeightError.ProcessValue / 100 * model.TotalCharge.ProcessValue))))
+                        if (Machine.Test[port].ChargeCalculatedWeight < (model.TotalCharge.ProcessValue - (model.MinimumChargeWeightError.ProcessValue / 100 * model.TotalCharge.ProcessValue)))
                         {
                             Machine.Test[port].PassedChargeFlag = false;
                             Int32 Pounds = Convert.ToInt32(Machine.Test[port].ChargeCalculatedWeight / 16 - 0.5);
@@ -6243,7 +6239,7 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
                 }
                 else
                 {
-                    if ((Machine.Test[port].ChargeCalculatedWeight > (model.TotalCharge.ProcessValue + Config.Flow.MaximumChargeWeightError.ProcessValue)))
+                    if (Machine.Test[port].ChargeCalculatedWeight > (model.TotalCharge.ProcessValue + (model.TotalCharge.ProcessValue + (model.MaximumChargeWeightError.ProcessValue/100*model.TotalCharge.ProcessValue))))
                     {
                         Machine.Test[port].PassedChargeFlag = false;
                         Int32 Pounds = Convert.ToInt32(Machine.Test[port].ChargeCalculatedWeight / 16 - 0.5);
@@ -6259,7 +6255,7 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
                     }
                     else
                     {
-                        if ((Machine.Test[port].ChargeCalculatedWeight < (model.TotalCharge.ProcessValue - Config.Flow.MinimumChargeWeightError.ProcessValue)))
+                        if (Machine.Test[port].ChargeCalculatedWeight < (model.TotalCharge.ProcessValue + (model.TotalCharge.ProcessValue + (model.MaximumChargeWeightError.ProcessValue / 100 * model.TotalCharge.ProcessValue))))
                         {
                             Machine.Test[port].PassedChargeFlag = false;
                             Int32 Pounds = Convert.ToInt32(Machine.Test[port].ChargeCalculatedWeight / 16 - 0.5);
@@ -10181,7 +10177,7 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
 				}
 			}
 
-            if (Config.Mode.QueryForPreviousSystem)
+            if (Config.Mode.QueryForPreviousSystem.ProcessValue)
             {
                 //read previous system used
                 if (strConnectVTIToLennox != "")
@@ -10200,12 +10196,13 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
 
                         sqlConnection2.Open();
                         returnValue = cmd.ExecuteReader();
-                        sqlConnection2.Close();
 
                         returnValue.Read();
                         Machine.Test[port].PreviousSystemID = returnValue["SystemID"].ToString();
                         Machine.Test[port].PreviousSystemEndDateTime = DateTime.Parse(returnValue["LatestDetailDateTime"].ToString());
                         returnValue.Close();
+
+                        sqlConnection2.Close();
 
                     }
                     catch (Exception ex)
@@ -10657,58 +10654,6 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
 						VtiEvent.Log.WriteError(Ex.Message);
 					}
 				}
-
-                //InitialEvacSetpoint
-                if (strConnectVTIToLennox != "")
-                {
-                    try
-                    {
-                        //SqlConnection sqlConnection2 = new SqlConnection(strConnectLennox);
-                        //SqlCommand cmd = new SqlCommand();
-                        Config.Control.TestResultTableName.ProcessValue = "UutRecordDetails";
-                        // Set the test result and write the records
-                        String strSqlCmd =
-                "insert into " + Config.Control.TestResultTableName.ProcessValue + " " +
-                //"insert into dbo.TestResult "+
-                "(UutRecordID, DateTime, Test, Result, ValueName, Value, MinSetpointName, MinSetpoint, MaxSetpointName, MaxSetpoint, Units, ElapsedTime) " +
-                "values('" + Machine.Test[port].UutRecordID + "', '" +
-                 DateTime.Now.ToString() + "', '" +
-                 "InitialEvac" + "', '" +
-                 Machine.Test[port].InitialEvacResult + "', '" +
-                 "StartInitialEvacPressure" + "', '" +
-                 string.Format("{0:0}", Machine.Test[port].StartInitialEvacPressure) + "', '" +
-                 "NoMinSetPoint" + "', '" +
-                 "0.0" + "', '" +
-                 "InitialEvacSetpoint" + "', '" +
-                 string.Format("{0:0}", Machine.Test[port].InitialEvacSetpoint) + "', '" +
-                 "microns" + "', '" +
-                  string.Format("{0:0.0}", Machine.Test[port].InitialEvacTime) + "')";
-                        Console.WriteLine(strSqlCmd);
-
-                        fnInsertATestRecord(strConnectVTIToLennox, strSqlCmd);
-                        if (Config.Control.RemoteConnectionString_VTI.ProcessValue != "")
-                        {
-                            fnInsertATestRecord(Config.Control.RemoteConnectionString_VTI.ProcessValue, strSqlCmd);
-                        }
-
-
-                        //cmd.CommandText = strSqlCmd;
-                        //cmd.CommandType = CommandType.Text;
-                        //cmd.Connection = sqlConnection2;
-
-                        //sqlConnection2.Open();
-
-                        //cmd.ExecuteNonQuery();
-
-
-                        //sqlConnection2.Close();
-                    }
-                    catch (Exception Ex)
-                    {
-                        Console.WriteLine(Ex.Message);
-                        VtiEvent.Log.WriteError(Ex.Message);
-                    }
-                }
 
                 //InitialEvacSetpoint
                 if (strConnectVTIToLennox != "")

@@ -707,14 +707,7 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Forms
             {
                 //Save blue counts per oz
                 Config.Flow.Blue_Circuit2_Flowmeter_Offset_Counts.ProcessValue = OffsetCountsPerOz;
-                if ((BlueAverageFlow > Config.Flow.Minimum_Flowmeter_Rate.ProcessValue)&&(BlueAverageFlow<10.0))
-                {
-                    Config.Flow.Blue_Flowmeter_Calibration_Flow.ProcessValue = BlueAverageFlow;
-                }
-                else
-                {
-                    MessageBox.Show("CALIBRATION FLOW OUT OF RANGE", Application.ProductName);
-                }
+                Config.Flow.Blue_Flowmeter_Calibration_Flow.ProcessValue = BlueAverageFlow;
                 Config.Save();
                 BlueCurrentOffsetCounts.Text = BlueCalculatedOffsetCounts.Text;
 

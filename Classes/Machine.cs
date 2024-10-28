@@ -154,6 +154,7 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE
 
       // Initial mode is "logged off"
       Config.TestMode = TestModes.Logoff;
+      Config.OpID = string.Empty;
 
       VtiEvent.Log.WriteVerbose("Done Initializing Machine...");
 
@@ -546,8 +547,6 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE
           Config.Flow.White_Flowmeter_Calibration_Flow.Visible = false;
           Config.Flow.White_Flowmeter_Flow_Factor.Visible = false;
           Config.Flow.Flowmeter_Zero_Warning_SetPoint.Visible = false;
-          Config.Flow.MinimumChargeWeightError.Visible = false;
-          Config.Flow.MaximumChargeWeightError.Visible = false;
 
           Config.DefaultModel.ScaleWeightCorrection.Visible = false;
           Config.Mode.RecoveryTankFloatSwitchEnabled.Visible = false;
