@@ -180,7 +180,7 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes.IOClasses
             BlueEvacPressureCDG1000 = new AnalogSignal("CDG 1000 Press", "Torr", "0", -1, true, true);
 
 
-            BluePartVacuummTorr = new AnalogSignal(Localization.AnalogSignalEvacPressure_mTorr, "mTorr", "0", 1500F, true, true);
+            BluePartVacuummTorr = new AnalogSignal(Localization.AnalogSignalEvacPressure_mTorr, "mTorr", "0", (float)Config.DefaultModel.ROR_Pressure_Check_Pressure_SetPointt.ProcessValue, true, true);
             BluePartVacuum = new AnalogSignal(Localization.AnalogSignalEvacPressure,"Torr","0.0",-1,true,true);
             _port[0].PartVacuum = BluePartVacuum;
 			WhitePartVacuum = new AnalogSignal(Localization.AnalogSignalEvacPressure,"Torr","0.0",-1,true,true);

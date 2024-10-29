@@ -3961,6 +3961,7 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
         {
 			MyStaticVariables.TimeTo50PsiBlue.Clear();
 			MyStaticVariables.EndingRecoveryPressBlue.Clear();
+            Machine.Test[port].Result = "";
 
 			Machine.Test[port].UsingRoughPumpForToolCheckFlag = true;
             step.ParametersToDisplay.Add(Config.Pressure.Tool_Check_Pressure_SetPoint);
@@ -9042,6 +9043,15 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
         protected virtual void Reset_Started(CycleStep step, CycleStep.CycleStepEventArgs e)
         {
 
+            if (Machine.Test[port].SerialNumber != "")
+            {
+                if (Machine.Test[port].Result == "")
+                {
+                    Machine.Test[port].Result = "RESET";
+                    Machine.TestHistory[port].AddEntry("RESET", Color.Black, Color.Yellow);
+                }
+            }
+
             if (!IO.DIn.MCRPower24VoltSense.Value)
             {
                 SetControlPropertyValue(Machine.Prompt[port], "BackColor", Color.White); //This is a thread safe method
@@ -11253,9 +11263,15 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
 				{
 					try
 					{
-						//SqlConnection sqlConnection2 = new SqlConnection(strConnectLennox);
-						//SqlCommand cmd = new SqlCommand();
-						Config.Control.TestResultTableName.ProcessValue = "UutRecordDetails";
+                        // Prevent writing negative charge weights
+
+                        if (Machine.Test[port].ActualChargeWeight < 0)
+
+                            Machine.Test[port].ActualChargeWeight = 0;
+
+                        //SqlConnection sqlConnection2 = new SqlConnection(strConnectLennox);
+                        //SqlCommand cmd = new SqlCommand();
+                        Config.Control.TestResultTableName.ProcessValue = "UutRecordDetails";
 						// Set the test result and write the records
 						String strSqlCmd =
 						"insert into " + Config.Control.TestResultTableName.ProcessValue + " " +
