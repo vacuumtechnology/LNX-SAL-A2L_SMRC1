@@ -6240,7 +6240,7 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
                 }
                 else
                 {
-                    if (Machine.Test[port].ChargeCalculatedWeight > (model.TotalCharge.ProcessValue + (model.TotalCharge.ProcessValue + (model.MaximumChargeWeightError.ProcessValue/100*model.TotalCharge.ProcessValue))))
+                    if (Machine.Test[port].ChargeCalculatedWeight > ((model.TotalCharge.ProcessValue + (model.MaximumChargeWeightError.ProcessValue/100*model.TotalCharge.ProcessValue))))
                     {
                         Machine.Test[port].PassedChargeFlag = false;
                         Int32 Pounds = Convert.ToInt32(Machine.Test[port].ChargeCalculatedWeight / 16 - 0.5);
@@ -6256,7 +6256,7 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
                     }
                     else
                     {
-                        if (Machine.Test[port].ChargeCalculatedWeight < (model.TotalCharge.ProcessValue + (model.TotalCharge.ProcessValue + (model.MaximumChargeWeightError.ProcessValue / 100 * model.TotalCharge.ProcessValue))))
+                        if (Machine.Test[port].ChargeCalculatedWeight < ((model.TotalCharge.ProcessValue - (model.MaximumChargeWeightError.ProcessValue / 100 * model.TotalCharge.ProcessValue))))
                         {
                             Machine.Test[port].PassedChargeFlag = false;
                             Int32 Pounds = Convert.ToInt32(Machine.Test[port].ChargeCalculatedWeight / 16 - 0.5);
