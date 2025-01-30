@@ -2488,7 +2488,7 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
             step.Color = Color.Black;
             step.ColorDetails = Color.Black;
 
-            
+            MyStaticVariables.ReadyToTest = false;
 
             IO.DOut.BlueCircuit2LightStackRed.Disable();
             IO.DOut.BlueCircuit2LightStackYellow.Disable();
