@@ -6503,7 +6503,7 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
                         IO.Signals.BlueLoSideToolPressure.Value < model.Recovery_Pressure_SetPoint.ProcessValue)
                     {
                         TimeSpan tsGoodRecoverPressure = DateTime.Now - MyStaticVariables.dtGoodRecoveryPressureStart;
-                        if (tsGoodRecoverPressure.TotalSeconds > 4.0)
+                        if (tsGoodRecoverPressure.TotalSeconds > 10.0)
                         {
 							if(Machine.Test[port].InitialRecoveryPassed)
 								step.Pass();
