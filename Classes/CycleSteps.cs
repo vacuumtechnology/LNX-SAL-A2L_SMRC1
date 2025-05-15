@@ -6500,7 +6500,7 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
                 if (port == Port.Blue)
                 {
                     if (IO.Signals.BlueHiSideToolPressure.Value < model.Recovery_Pressure_SetPoint.ProcessValue && 
-                        IO.Signals.BlueLoSideToolPressure.Value < model.Initial_Recovery_Setpoint.ProcessValue)
+                        IO.Signals.BlueLoSideToolPressure.Value < model.Recovery_Pressure_SetPoint.ProcessValue)
                     {
                         TimeSpan tsGoodRecoverPressure = DateTime.Now - MyStaticVariables.dtGoodRecoveryPressureStart;
                         if (tsGoodRecoverPressure.TotalSeconds > 4.0)
