@@ -33,6 +33,9 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
         public static double BlueLowSideStartWeight;
         public static double BlueLowSideEndWeight;
 
+        public static double BlueStartingCountsForDataBase;
+        public static double BlueEndingCountsForDatabase;
+
         public static string MessageRefrigerantType = "";
         public static string MessageRefrigerantName = "";
         public static string MessageSerialNumber="";

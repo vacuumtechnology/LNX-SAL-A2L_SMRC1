@@ -5483,6 +5483,9 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
 
         void RateOfRise_Passed(CycleStep step, CycleStep.CycleStepEventArgs e)
         {
+            MyStaticVariables.BlueStartingCountsForDataBase = 0;
+            MyStaticVariables.BlueEndingCountsForDatabase = 0;
+
             Machine.Test[port].RORResult = "Pass";
 
             //IO.DOut.CrossOverValve.Disable();
@@ -5899,8 +5902,11 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
                 }
 
 
-                //****mdb12/11/17
-                if (Config.Mode.HP_SwitchChargeOnFlow.ProcessValue &&
+            double tempMaxToolPressure =Config.Pressure.MaximumBlueToolPressureDuringCharge.ProcessValue;
+
+
+            //****mdb12/11/17
+            if (Config.Mode.HP_SwitchChargeOnFlow.ProcessValue &&
                     (PartFlow < model.FlowRateSwitch.ProcessValue) &&
                     (step.ElapsedTime.TotalSeconds > 5.0))
                 {
@@ -5927,7 +5933,16 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
                     Machine.Test[port].TestHistory = Localization.MaximumTimeTH;
 
                     step.Fail();
-                }   
+                }
+                else if (IO.Signals.BlueHiSideToolPressure > tempMaxToolPressure)
+                {
+
+                    Machine.Test[port].TestResult = "Tool Pressure Too High";
+                    Machine.Test[port].TestHistory = "Tool Pressure High";
+                    VtiEvent.Log.WriteInfo($"Hi Side Tool Pressure too high ({IO.Signals.BlueHiSideToolPressure} > {tempMaxToolPressure} psi after {step.ElapsedTime.TotalSeconds:0.0} sec)");
+
+                    step.Fail();
+                }
                 else//****mdb12/11/17
                 {
 
@@ -6368,9 +6383,13 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
                 double MaximumTime = OverChargeLimit / Config.Flow.Average_Charge_Rate.ProcessValue;
                 Machine.Test[port].ChargeTimeoutDelay = MaximumTime;
 
-                //fail on minimum rate error
-                //if ((PartFlow < Config.Flow.Minimum_Flowmeter_Rate.ProcessValue) && (step.ElapsedTime.TotalSeconds > 5.0))
-                if ((LowFlowAlarmTime.TotalSeconds > 3.0) && (step.ElapsedTime.TotalSeconds > 5.0))
+
+            double tempMaxToolPressure =Config.Pressure.MaximumBlueToolPressureDuringCharge.ProcessValue;
+
+
+            //fail on minimum rate error
+            //if ((PartFlow < Config.Flow.Minimum_Flowmeter_Rate.ProcessValue) && (step.ElapsedTime.TotalSeconds > 5.0))
+            if ((LowFlowAlarmTime.TotalSeconds > 3.0) && (step.ElapsedTime.TotalSeconds > 5.0))
                 {
                     Machine.Test[port].TestResult = Localization.LowFlowFailed;
                     Machine.Test[port].TestHistory = Localization.LowFlowTH;
@@ -6384,6 +6403,15 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
                     {
                         Machine.Test[port].TestResult = Localization.MaximumTimeFailed;
                         Machine.Test[port].TestHistory = Localization.MaximumTimeTH;
+
+                        step.Fail();
+                    }
+                    else if (IO.Signals.BlueLoSideToolPressure.Value > tempMaxToolPressure)
+                    {
+
+                        Machine.Test[port].TestResult = "Tool Pressure Too High";
+                        Machine.Test[port].TestHistory = "Tool Pressure High";
+                        VtiEvent.Log.WriteInfo($"Low Side Tool Pressure too high ({IO.Signals.BlueLoSideToolPressure.Value} > {tempMaxToolPressure} psi after {step.ElapsedTime.TotalSeconds:0.0} sec)");
 
                         step.Fail();
                     }
@@ -6614,6 +6642,8 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
             int TotalCounts;
             if (port == Port.Blue)
             {
+                MyStaticVariables.BlueStartingCountsForDataBase = Machine.Test[port].ChargeStartCounts;
+                MyStaticVariables.BlueEndingCountsForDatabase = Machine.Test[port].ChargeEndCounts;
                 if ((Machine.Test[port].ForceHiSideChargeFlag) || (!Config.Mode.BlueCircuit2LowSideEnabled.ProcessValue)||(model.HiSidePercentage.ProcessValue>99.5))
                 {
                     //use the hiside counter
@@ -6621,6 +6651,7 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
                     //TotalCounts = Machine.Test[port].ChargeStartCounts + (Machine.Test[port].ChargeStartCounts - Machine.Test[port].ChargeEndCounts);
                     TotalCounts = (Machine.Test[port].ChargeStartCounts - Machine.Test[port].ChargeEndCounts);
                     Machine.Test[port].ActualCounts = TotalCounts;
+                    VtiEvent.Log.WriteInfo($"Tool Drain Delay: Blue starting counts:{Machine.Test[port].ChargeStartCounts}; Blue Ending Counts:{Machine.Test[port].ChargeEndCounts};Target Charge:{model.TotalCharge.ProcessValue}");
                     Machine.Test[port].ChargeCalculatedWeight=Convert.ToDouble(TotalCounts)/Config.Flow.Blue_Circuit2_Flowmeter_Counts_Per_Ounce.ProcessValue;
                 }
                 else
@@ -6631,6 +6662,7 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
                     //TotalCounts = Machine.Test[port].ChargeStartCounts + (Machine.Test[port].ChargeStartCounts - Machine.Test[port].ChargeEndCounts);
                     TotalCounts = (Machine.Test[port].ChargeStartCounts - Machine.Test[port].ChargeEndCounts);
                     Machine.Test[port].ActualCounts = TotalCounts;
+                    VtiEvent.Log.WriteInfo($"Tool Drain Delay: Blue starting counts:{Machine.Test[port].ChargeStartCounts}; Blue Ending Counts:{Machine.Test[port].ChargeEndCounts};Target Charge:{model.TotalCharge.ProcessValue}");
                     Machine.Test[port].ChargeCalculatedWeight=Convert.ToDouble(TotalCounts)/Config.Flow.Blue_Circuit2_Flowmeter_Counts_Per_Ounce.ProcessValue;
                 }
                 AppendToToolTip($"Counts: From {Machine.Test[port].ChargeStartCounts:0} to {Convert.ToInt32(IO.Signals.BlueHiSideCounter.Value):0}");
@@ -12288,7 +12320,111 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
 						VtiEvent.Log.WriteError(Ex.Message);
 					}
 				}
-			}
+                //ActualChargeCounts
+                if (strConnectVTIToLennox != "")
+                {
+                    try
+                    {
+                        double startingcountsTemp = MyStaticVariables.BlueStartingCountsForDataBase;
+                        //SqlConnection sqlConnection2 = new SqlConnection(strConnectLennox);
+                        //SqlCommand cmd = new SqlCommand();
+                        Config.Control.TestResultTableName.ProcessValue = "UutRecordDetails";
+                        // Set the test result and write the records
+                        String strSqlCmd =
+                "insert into " + Config.Control.TestResultTableName.ProcessValue + " " +
+                //"insert into dbo.TestResult "+
+                "(UutRecordID, DateTime, Test, Result, ValueName, Value, MinSetpointName, MinSetpoint, MaxSetpointName, MaxSetpoint, Units, ElapsedTime) " +
+                "values('" + Machine.Test[port].UutRecordID + "', '" +
+                 DateTime.Now.ToString() + "', '" +
+                 "Charge" + "', '" +
+                 Machine.Test[port].ChargeResult + "', '" +
+                 "StartingCounts" + "', '" +
+                 string.Format("{0:0}", startingcountsTemp) + "', '" +
+                 "TargetCharge" + "', '" +
+                  string.Format("{0:0}", model.TotalCharge.ProcessValue) + "', '" +
+                 "NoMaxSetPoint" + "', '" +
+                 "0.0" + "', '" +
+                 "counts" + "', '" +
+                  string.Format("{0:0.0}", Machine.Test[port].ChargeTime) + "')";
+                        Console.WriteLine(strSqlCmd);
+
+                        fnInsertATestRecord(strConnectVTIToLennox, strSqlCmd);
+                        if (Config.Control.RemoteConnectionString_VTI.ProcessValue != "")
+                        {
+                            fnInsertATestRecord(Config.Control.RemoteConnectionString_VTI.ProcessValue, strSqlCmd);
+                        }
+
+
+                        //cmd.CommandText = strSqlCmd;
+                        //cmd.CommandType = CommandType.Text;
+                        //cmd.Connection = sqlConnection2;
+
+                        //sqlConnection2.Open();
+
+                        //cmd.ExecuteNonQuery();
+
+
+                        //sqlConnection2.Close();
+                    }
+                    catch (Exception Ex)
+                    {
+                        Console.WriteLine(Ex.Message);
+                        VtiEvent.Log.WriteError(Ex.Message);
+                    }
+                }
+                //ActualChargeCounts
+                if (strConnectVTIToLennox != "")
+                {
+                    try
+                    {
+                        double endingcountsTemp =MyStaticVariables.BlueEndingCountsForDatabase;
+                        //SqlConnection sqlConnection2 = new SqlConnection(strConnectLennox);
+                        //SqlCommand cmd = new SqlCommand();
+                        Config.Control.TestResultTableName.ProcessValue = "UutRecordDetails";
+                        // Set the test result and write the records
+                        String strSqlCmd =
+                "insert into " + Config.Control.TestResultTableName.ProcessValue + " " +
+                //"insert into dbo.TestResult "+
+                "(UutRecordID, DateTime, Test, Result, ValueName, Value, MinSetpointName, MinSetpoint, MaxSetpointName, MaxSetpoint, Units, ElapsedTime) " +
+                "values('" + Machine.Test[port].UutRecordID + "', '" +
+                 DateTime.Now.ToString() + "', '" +
+                 "Charge" + "', '" +
+                 Machine.Test[port].ChargeResult + "', '" +
+                 "ActualChargeCounts" + "', '" +
+                 string.Format("{0:0}", endingcountsTemp) + "', '" +
+                 "TargetChargeCounts" + "', '" +
+                  string.Format("{0:0}", Machine.Test[port].TargetCounts) + "', '" +
+                 "NoMaxSetPoint" + "', '" +
+                 "0.0" + "', '" +
+                 "counts" + "', '" +
+                  string.Format("{0:0.0}", Machine.Test[port].ChargeTime) + "')";
+                        Console.WriteLine(strSqlCmd);
+
+                        fnInsertATestRecord(strConnectVTIToLennox, strSqlCmd);
+                        if (Config.Control.RemoteConnectionString_VTI.ProcessValue != "")
+                        {
+                            fnInsertATestRecord(Config.Control.RemoteConnectionString_VTI.ProcessValue, strSqlCmd);
+                        }
+
+
+                        //cmd.CommandText = strSqlCmd;
+                        //cmd.CommandType = CommandType.Text;
+                        //cmd.Connection = sqlConnection2;
+
+                        //sqlConnection2.Open();
+
+                        //cmd.ExecuteNonQuery();
+
+
+                        //sqlConnection2.Close();
+                    }
+                    catch (Exception Ex)
+                    {
+                        Console.WriteLine(Ex.Message);
+                        VtiEvent.Log.WriteError(Ex.Message);
+                    }
+                }
+            }
 
 
 			//ToolDrain

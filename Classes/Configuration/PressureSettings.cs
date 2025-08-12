@@ -18,7 +18,33 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes.Configuration
     public class PressureSettings : EditCycleApplicationSettingsBase
     {
 
-
+        #region MaximumBlueToolPressureDuringCharge : NumericParameter
+        [UserScopedSetting()]
+        [XmlElement("NumericParameter")]
+        [DefaultSettingValue(@"
+            <NumericParameter>
+                <DisplayName>Maximum Tool Pressure During Charge - Blue</DisplayName>
+                <ProcessValue>500</ProcessValue>
+                <MinValue>0</MinValue>
+                <MaxValue>1000</MaxValue>
+                <SmallStep>1</SmallStep>
+                <LargeStep>10</LargeStep>
+                <Units>psig</Units>
+                <ToolTip>If tool pressure exceeds this value during charge for more than a second, the charge will fail. Hi tool pressure during hi side charge and low side tool pressure during low side charge.</ToolTip>
+            </NumericParameter>
+        ")]
+        public NumericParameter MaximumBlueToolPressureDuringCharge
+        {
+            get
+            {
+                return ((NumericParameter)this["MaximumBlueToolPressureDuringCharge"]);
+            }
+            set
+            {
+                this["MaximumBlueToolPressureDuringCharge"] = (NumericParameter)value;
+            }
+        }
+        #endregion
         #region LateLeakCheckRORMaxSetPoint : NumericParameter
         [UserScopedSetting()]
         [XmlElement("NumericParameter")]
