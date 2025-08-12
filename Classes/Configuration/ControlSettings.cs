@@ -1402,5 +1402,28 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes.Configuration
         }
         #endregion
 
+        #region TimeToStartDianostic : StringParameter
+        [UserScopedSetting()]
+        [XmlElement("StringParameter")]
+        [DefaultSettingValue(@"
+            <StringParameter>
+                <DisplayName>Sleep Diagnostic - Time to Begin</DisplayName>
+                <ProcessValue>5:00</ProcessValue>
+                <ToolTip>After Sleep Diagnostic has been started this is the time that the evacaution will stop and Rate of Rise Begin. Example: 5:00</ToolTip>
+            </StringParameter>
+        ")]
+        public StringParameter TimeToStartDianostic
+        {
+            get
+            {
+                return ((StringParameter)this["TimeToStartDianostic"]);
+            }
+            set
+            {
+                this["TimeToStartDianostic"] = (StringParameter)value;
+            }
+        }
+        #endregion
+
     }
 }

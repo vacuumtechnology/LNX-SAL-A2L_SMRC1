@@ -431,6 +431,33 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes.Configuration
         }
         #endregion
 
+        #region SleepDiagnosticMaxROR : NumericParameter
+        [UserScopedSetting()]
+        [XmlElement("NumericParameter")]
+        [DefaultSettingValue(@"
+            <NumericParameter>
+                <DisplayName>Sleep Diagnostic Max ROR</DisplayName>
+                <ProcessValue>100</ProcessValue>
+                <MinValue>0</MinValue>
+                <MaxValue>10000</MaxValue>
+                <SmallStep>1</SmallStep>
+                <LargeStep>0.1</LargeStep>
+                <Units>mtorr/min</Units>
+                <ToolTip>Maximum Rate of Rise during Sleep Diagnostic</ToolTip>
+            </NumericParameter>
+        ")]
+        public NumericParameter SleepDiagnosticMaxROR
+        {
+            get
+            {
+                return ((NumericParameter)this["SleepDiagnosticMaxROR"]);
+            }
+            set
+            {
+                this["SleepDiagnosticMaxROR"] = (NumericParameter)value;
+            }
+        }
+        #endregion
     }
 
 }

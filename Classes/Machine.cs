@@ -73,7 +73,8 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE
     protected BadgeForm _BadgeForm;
     protected MessageForm _MessageForm;
     protected FlowmeterCalibrate _FlowmeterCalibrate;
-    protected CycleStepsActiveForm _CycleStepsActiveForm;
+        protected SleepDiagnosticsForm _SleepDiagnosticsForm;
+        protected CycleStepsActiveForm _CycleStepsActiveForm;
 
     public static CycleStepsActiveForm CycleStepsForm { get { return Instance._CycleStepsActiveForm; } }
     public static Int32 InitializeCounter{ get { return Instance.InitializeCounterBoard(); } }
@@ -113,7 +114,8 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE
     public static BadgeForm Badge { get { return Instance._BadgeForm; } }
     public static MessageForm Message { get { return Instance._MessageForm; } }
     public static FlowmeterCalibrate FlowmeterCalibrate { get { return Instance._FlowmeterCalibrate; } }
-    public static MainForm MainForm { get { return Instance._MainForm; } }
+        public static SleepDiagnosticsForm SleepDiagnosticsForm { get { return Instance._SleepDiagnosticsForm; } }
+        public static MainForm MainForm { get { return Instance._MainForm; } }
     
     public ResourceManager LocalizationInstance { get { return _LocalizationResource; } }
     public IManualCommands ManualCommandsInstance { get { return _ManualCommands; } }
@@ -139,7 +141,8 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE
       InitializeBadgeForm();
       InitializeMessageForm();
       InitializeFlowmeterCalibrate();
-      InitializeDatabase();
+            InitializeSleepDiagnosticsForm();
+            InitializeDatabase();
       InitializeIoInterface();
       InitializeDataPlot();
       InitializeSystemSignals();
@@ -842,9 +845,16 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE
     {
       SplashScreen.Message = Localization.InitializingFlowmeterCalibrationForm;
       _FlowmeterCalibrate = new FlowmeterCalibrate();
-    }
+        }
+        protected virtual void InitializeSleepDiagnosticsForm()
+        {
+            SplashScreen.Message = "Loading Sleep Diagnostics Form";
+            _SleepDiagnosticsForm = new SleepDiagnosticsForm();
+            _SleepDiagnosticsForm.ClearForm();
+            _SleepDiagnosticsForm.SetDate(0, "-");
+        }
 
-    protected virtual void InitializeZM400()
+        protected virtual void InitializeZM400()
     {
       //// Initialize Barcode Scanner
       //SplashScreen.Message = "Initializing Zebra ZM400...";

@@ -327,14 +327,42 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes.Configuration
         }
         #endregion
 
+        #region Diag_Test_Settle_Delay : TimeDelayParameter
+        [UserScopedSetting()]
+        [XmlElement("TimeDelayParameter")]
+        [DefaultSettingValue(@"
+            <TimeDelayParameter>
+                <DisplayName>Diagnostic Test Settle Delay</DisplayName>
+                <ProcessValue>120</ProcessValue>
+                <MinValue>30</MinValue>
+                <MaxValue>6000</MaxValue>
+                <SmallStep>0.1</SmallStep>
+                <LargeStep>10</LargeStep>
+                <Units>Seconds</Units>
+                <ToolTip>Time delay for the diagnositic rate of rise tests to allow the pressure to settle after closing the rate of rise valve.</ToolTip>
+            </TimeDelayParameter>
+        ")]
+        public TimeDelayParameter Diag_Test_Settle_Delay
+        {
+            get
+            {
+                return ((TimeDelayParameter)this["Diag_Test_Settle_Delay"]);
+            }
+            set
+            {
+                this["Diag_Test_Settle_Delay"] = (TimeDelayParameter)value;
+            }
+        }
+        #endregion
+
         #region Diag_Test_ROR_Delay : TimeDelayParameter
         [UserScopedSetting()]
         [XmlElement("TimeDelayParameter")]
         [DefaultSettingValue(@"
             <TimeDelayParameter>
                 <DisplayName>Diagnostic Test Rate Of Rise Delay</DisplayName>
-                <ProcessValue>60</ProcessValue>
-                <MinValue>0</MinValue>
+                <ProcessValue>120</ProcessValue>
+                <MinValue>120</MinValue>
                 <MaxValue>6000</MaxValue>
                 <SmallStep>0.1</SmallStep>
                 <LargeStep>10</LargeStep>
@@ -354,7 +382,6 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes.Configuration
             }
         }
         #endregion
-
         #region RoughPumpIdlePowerOff : TimeDelayParameter
         [UserScopedSetting()]
         [XmlElement("TimeDelayParameter")]

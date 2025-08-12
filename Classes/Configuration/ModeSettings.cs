@@ -994,5 +994,27 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes.Configuration
         }
         #endregion
 
+        #region SleepDiagnosticCheckHoseWhips : BooleanParameter
+        [UserScopedSetting()]
+        [XmlElement("BooleanParameter")]
+        [DefaultSettingValue(@"
+            <BooleanParameter>
+                <DisplayName>Sleep Diagnostic - Check Hose Whips</DisplayName>
+                <ProcessValue>true</ProcessValue>
+                <ToolTip>If enabled, the sleep diagnostic will extend the tool stems to perform a rate of rise on the hose whips. Otherwise the stem will stay retracted</ToolTip>
+            </BooleanParameter>
+        ")]
+        public BooleanParameter SleepDiagnosticCheckHoseWhips
+        {
+            get
+            {
+                return ((BooleanParameter)this["SleepDiagnosticCheckHoseWhips"]);
+            }
+            set
+            {
+                this["SleepDiagnosticCheckHoseWhips"] = (BooleanParameter)value;
+            }
+        }
+        #endregion
     }
 }

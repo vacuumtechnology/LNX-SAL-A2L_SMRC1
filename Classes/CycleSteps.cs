@@ -39,6 +39,7 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
           ReadyForSequence, Reset, ResetComplete, TestAborted,
           PurgeOffPrompt, AreaWarningPrompt, RefrigerantPPMLowWarning, RefrigerantPPMHighWarning,
             Idle, InvalidModelNumber, Disabled,
+          SleepDiagnosticPromptToPlug, SleepDiagFirstBasePressCheck, SleepDiagnosticEvacTillTime, SleepDiagSecondBasePressureCheck, SleeptDiagRORtoHosesOnGuns, SleeptDiagRepeatEvac, SleeptDiagRORtoGuns, SleeptDiagRORWithoutGuns, SleepDiagPromptToEnd,
           WaitForSerialNumber,
           TurnOnReversingValve,
           WaitForModelSelection,
@@ -141,6 +142,8 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
         public bool bDisableHiSideCharge,bDisableLowSideCharge;
         public bool bUpdateLanguage;
         public bool bDisplayFlowmeterCalibration;
+        public bool bDisplaySleepDiagnosticsForm, bsleepDiagnosticinsertbasePressCheck1Data, bSleepDiagStartDataPlot, bsleepDiagnosticinsertSystemEvacData, bsleepDiagnosticinsertBasePressCheck2Data, bsleepDiagnosticinsertRORtoHosesOnGunsData, bsleepDiagnosticinsertRepeatEvac1Data, bsleepDiagnosticinsertRORtoGunsData, bsleepDiagnosticinsertRepeatEvac2Data, bsleepDiagnosticinsertRORwithoutGunsData, bsleepDiagnosticinsertResult, bsleepDiagnosticinsertDate, bsleepDiagnosticClearForm;
+        public bool bHideSleepDiagnosticsForm;
         public bool bManualMode;
         public bool bShowMessageForm,bShowMessageCloseLiquidValve,bShowMessageFinalData,bStartDataPlot,bStopDataPlot,bFinalEvacLimitsForDataPlot,bRORLimitsForDataPlot,bChargeLimitsForDataPlot,bDockTheDataPlot;
         public bool bShowMessageCloseServiceValvesPatialCharge;
@@ -212,7 +215,95 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
             ATestStep.Tick += new CycleStep.CycleStepEventHandler(ATestStep_Tick);
             ATestStep.Passed += new CycleStep.CycleStepEventHandler(ATestStep_Passed);
 
+            #region Sleep Diagnostic
+            SleepDiagnosticPromptToPlug = new CycleStep
+            {
+                Prompt = "SLEEP - Plug Hoses and Press Acknowledge",
 
+            };
+            SleepDiagnosticPromptToPlug.Tick += SleepDiagnosticPromptToPlug_Tick;
+            SleepDiagnosticPromptToPlug.Passed += SleepDiagnosticPromptToPlug_Passed;
+
+            SleepDiagFirstBasePressCheck = new CycleStep
+            {
+                Prompt = "SLEEP - First Base Pressure Check",
+                DisplayElapsedTime = true,
+                WriteUutRecordDetail = false,
+            };
+            SleepDiagFirstBasePressCheck.Started += SleepDiagFirstBasePressCheck_Started;
+            SleepDiagFirstBasePressCheck.Tick += SleepDiagFirstBasePressCheck_Tick;
+            SleepDiagFirstBasePressCheck.Passed += SleepDiagFirstBasePressCheck_Passed;
+
+            SleepDiagnosticEvacTillTime = new CycleStep
+            {
+                Prompt = "SLEEP - Evac Until Chosen Time",
+                DisplayElapsedTime = true,
+                WriteUutRecordDetail = false,
+            };
+            SleepDiagnosticEvacTillTime.Started += SleepDiagnosticEvacTillTime_Started;
+            SleepDiagnosticEvacTillTime.Passed += SleepDiagnosticEvacTillTime_Passed;
+            SleepDiagnosticEvacTillTime.Tick += SleepDiagnosticEvacTillTime_Tick;
+            SleepDiagnosticEvacTillTime.Failed += SleepDiagnosticEvacTillTime_Failed;
+
+            SleepDiagSecondBasePressureCheck = new CycleStep
+            {
+                Prompt = "SLEEP - Second Base Pressure Check",
+                DisplayElapsedTime = true,
+                WriteUutRecordDetail = false,
+            };
+            SleepDiagSecondBasePressureCheck.Started += SleepDiagSecondBasePressureCheck_Started;
+            SleepDiagSecondBasePressureCheck.Tick += SleepDiagSecondBasePressureCheck_Tick;
+            SleepDiagSecondBasePressureCheck.Passed += SleepDiagSecondBasePressureCheck_Passed;
+
+            SleeptDiagRORtoHosesOnGuns = new CycleStep
+            {
+                Prompt = "SLEEP - Rate of Rise",
+                DisplayElapsedTime = true,
+                WriteUutRecordDetail = false,
+            };
+            SleeptDiagRORtoHosesOnGuns.Started += SleeptDiagRORtoHosesOnGuns_Started;
+            SleeptDiagRORtoHosesOnGuns.Tick += SleeptDiagRORtoHosesOnGuns_Tick;
+            SleeptDiagRORtoHosesOnGuns.Passed += SleeptDiagRORtoHosesOnGuns_Passed;
+
+            SleeptDiagRepeatEvac = new CycleStep
+            {
+                Prompt = "SLEEP - Repeat Evacaution",
+                DisplayElapsedTime = true,
+                WriteUutRecordDetail = false,
+            };
+            SleeptDiagRepeatEvac.Started += SleeptDiagRepeatEvac_Started;
+            SleeptDiagRepeatEvac.Tick += SleeptDiagRepeatEvac_Tick;
+            SleeptDiagRepeatEvac.Passed += SleeptDiagRepeatEvac_Passed;
+
+            SleeptDiagRORtoGuns = new CycleStep
+            {
+                Prompt = "SLEEP - Rate of Rise",
+                DisplayElapsedTime = true,
+                WriteUutRecordDetail = false,
+            };
+            SleeptDiagRORtoGuns.Started += SleeptDiagRORtoGuns_Started;
+            SleeptDiagRORtoGuns.Tick += SleeptDiagRORtoGuns_Tick;
+            SleeptDiagRORtoGuns.Passed += SleeptDiagRORtoGuns_Passed;
+
+            SleeptDiagRORWithoutGuns = new CycleStep
+            {
+                Prompt = "SLEEP - Rate of Rise",
+                DisplayElapsedTime = true,
+                WriteUutRecordDetail = false,
+            };
+            SleeptDiagRORWithoutGuns.Started += SleeptDiagRORWithoutGuns_Started;
+            SleeptDiagRORWithoutGuns.Tick += SleeptDiagRORWithoutGuns_Tick;
+            SleeptDiagRORWithoutGuns.Passed += SleeptDiagRORWithoutGuns_Passed;
+
+            SleepDiagPromptToEnd = new CycleStep
+            {
+                Prompt = "Acknowledge to end Diagnostic",
+                WriteUutRecordDetail = false,
+            };
+            SleepDiagPromptToEnd.Started += SleepDiagPromptToEnd_Started;
+            SleepDiagPromptToEnd.Tick += SleepDiagPromptToEnd_Tick;
+            SleepDiagPromptToEnd.Passed += SleepDiagPromptToEnd_Passed;
+            #endregion
 
             TestAborted = new CycleStep();
 
@@ -1054,6 +1145,529 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
             // End 
         }
 
+        private void SleepDiagPromptToEnd_Passed(CycleStep step, CycleStep.CycleStepEventArgs e)
+        {
+            Reset.Start();
+        }
+
+        private void SleepDiagPromptToEnd_Tick(CycleStep step, CycleStep.CycleStepEventArgs e)
+        {
+            if (IO.DIn.Acknowledge.Value)
+            {
+                step.Pass();
+            }
+        }
+
+        private void SleepDiagPromptToEnd_Started(CycleStep step, CycleStep.CycleStepEventArgs e)
+        {
+            dout.HiSideCharge.Disable();
+            dout.HiSideRecovery.Disable();
+            if (Config.Mode.SleepDiagnosticCheckHoseWhips.ProcessValue)
+            {
+                dout.HiSideToolStem.Enable();
+                dout.LoSideToolStem.Enable();
+            }
+            else
+            {
+                dout.HiSideToolStem.Disable();
+                dout.LoSideToolStem.Disable();
+            }
+
+            dout.RateOfRiseValve.Enable();
+            dout.UnitEvac.Enable();
+
+            dout.HiSideEvac.Enable();
+            dout.LoSideEvac.Enable();
+        }
+        void WriteSleepResultsToDatabase(string TestResult)
+        {
+            string strConnectVTIToLennox = Config.Control.RemoteConnectionString_VTIToLennox.ProcessValue;
+
+
+            if (strConnectVTIToLennox != "")
+            {
+                try
+                {
+                    SqlConnection sqlConnection2 = new SqlConnection(strConnectVTIToLennox);
+                    SqlCommand cmd = new SqlCommand();
+
+                    Config.Control.TestResultTableName.ProcessValue = "UutRecords";
+                    // Set the test result and write the records
+                    String strSqlCmd =
+                    "insert into UutRecords " +
+                    "(SerialNo, ModelNo, DateTime, SystemID, OpID, TestType, TestResult, TestPort) " +
+                    "values('" + Machine.Test[port].SerialNumber + "', '" +
+                     Machine.Test[port].ModelNumber + "', '" +
+                     DateTime.Now.ToString() + "', '" +
+                     Config.Control.System_ID.ProcessValue + "', '" +
+                     Machine.Test[port].OpID + "', '" +
+                     "Diagnostic" + "', '" +
+                     Machine.Test[port].TestResult + "', '" +
+                     "BLUE PORT" + "')";
+
+                    Console.WriteLine(strSqlCmd);
+
+                    //fnInsertATestRecord(strConnectVTIToLennox, strSqlCmd);
+                    cmd.CommandText = strSqlCmd + " SELECT SCOPE_IDENTITY()";
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Connection = sqlConnection2;
+                    sqlConnection2.Open();
+                    //cmd.ExecuteNonQuery();
+                    Machine.Test[port].UutRecordID = Convert.ToInt32(cmd.ExecuteScalar()).ToString();
+                    VtiEvent.Log.WriteInfo(
+                            string.Format("UUTRecordID = " + Machine.Test[port].UutRecordID),
+                                    VtiEventCatType.Database);
+
+                    sqlConnection2.Close();
+
+                    if (Config.Control.RemoteConnectionString_VTI.ProcessValue != "")
+                    {
+                        fnInsertATestRecord(Config.Control.RemoteConnectionString_VTI.ProcessValue, strSqlCmd);
+                    }
+                }
+                catch (Exception Ex)
+                {
+                    VtiEvent.Log.WriteError(Ex.Message);
+                }
+
+
+                foreach (MyStaticVariables.UUTRecordDetailToWrite record1 in MyStaticVariables.BlueUUTRecordsToWrite)
+                {
+                    try
+                    {
+                        //SqlConnection sqlConnection2 = new SqlConnection(strConnectLennox);
+                        //SqlCommand cmd = new SqlCommand();
+                        Config.Control.TestResultTableName.ProcessValue = "UutRecordDetails";
+                        // Set the test result and write the records
+                        String strSqlCmd =
+                "insert into " + Config.Control.TestResultTableName.ProcessValue + " " +
+                //"insert into dbo.TestResult "+
+                "(UutRecordID, DateTime, Test, Result, ValueName, Value, MinSetpointName, MinSetpoint, MaxSetpointName, MaxSetpoint, Units, ElapsedTime) " +
+                "values('" + Machine.Test[port].UutRecordID + "', '" +
+                 record1.DateTime1.ToString() + "', '" +
+                 record1.Test1 + "', '" +
+                 record1.Result1 + "', '" +
+                 record1.ValueName1 + "', '" +
+                 record1.value1 + "', '" +
+                 record1.MinSetpointName1 + "', '" +
+                 record1.MinSetpoint1 + "', '" +
+                 record1.MaxSetpointName1 + "', '" +
+                 record1.MaxSetpoint1 + "', '" +
+                 record1.Units1 + "', '" +
+                 record1.ElapsedTime1 + "')";
+                        Console.WriteLine(strSqlCmd);
+
+                        fnInsertATestRecord(strConnectVTIToLennox, strSqlCmd);
+                        if (Config.Control.RemoteConnectionString_VTI.ProcessValue != "")
+                        {
+                            fnInsertATestRecord(Config.Control.RemoteConnectionString_VTI.ProcessValue, strSqlCmd);
+                        }
+
+
+                        //cmd.CommandText = strSqlCmd;
+                        //cmd.CommandType = CommandType.Text;
+                        //cmd.Connection = sqlConnection2;
+
+                        //sqlConnection2.Open();
+
+                        //cmd.ExecuteNonQuery();
+
+
+                        //sqlConnection2.Close();
+                    }
+                    catch (Exception Ex)
+                    {
+                        Console.WriteLine(Ex.Message);
+                        VtiEvent.Log.WriteError(Ex.Message);
+                    }
+                }
+            }
+        }
+        private void SleeptDiagRORWithoutGuns_Passed(CycleStep step, CycleStep.CycleStepEventArgs e)
+        {
+            AddUutRecordDetail(MyStaticVariables.SleepDiagnosticVar[port].RORWithoutGunsCalcStartTime, "RORWithoutGuns", "Complete", "ROR Start Pressure", MyStaticVariables.SleepDiagnosticVar[port].ROR3InitialPressure, 0, "", 0, "", "mtorr", 105);
+            AddUutRecordDetail(MyStaticVariables.SleepDiagnosticVar[port].RORWithoutGunsCalcEndTime, "RORWithoutGuns", "Complete", "ROR End Pressure", MyStaticVariables.SleepDiagnosticVar[port].ROR3FinalPressure, 0, "", 0, "", "mtorr", step.ElapsedTime.TotalSeconds);
+            AddUutRecordDetail(MyStaticVariables.SleepDiagnosticVar[port].RORWithoutGunsCalcEndTime, "RORWithoutGuns", "Complete", "ROR", MyStaticVariables.SleepDiagnosticVar[port].ror3, 0, "", 0, "", "mtorr/min", step.ElapsedTime.TotalSeconds);
+
+            if (MyStaticVariables.SleepDiagnosticVar[port].Passed)
+            {
+                MyStaticVariables.SleepDiagnosticVar[port].Result = "PASS";
+                WriteSleepResultsToDatabase("PASS");
+
+                Machine.TestHistory[port].AddEntry(Machine.Test[port].SerialNumber + ": " + "PASS", Color.Black, Color.LawnGreen);
+            }
+            else
+            {
+                MyStaticVariables.SleepDiagnosticVar[port].Result = "FAIL";
+
+                WriteSleepResultsToDatabase("FAIL");
+                Machine.TestHistory[port].AddEntry(Machine.Test[port].SerialNumber + ": " + "FAIL", Color.Yellow, Color.Red);
+            }
+
+            bsleepDiagnosticinsertRORwithoutGunsData = true;
+            bsleepDiagnosticinsertResult = true;
+            bsleepDiagnosticinsertDate = true;
+            SleepDiagPromptToEnd.Start();
+
+        }
+
+        private void SleeptDiagRORWithoutGuns_Tick(CycleStep step, CycleStep.CycleStepEventArgs e)
+        {
+            double settle = Config.Time.Diag_Test_Settle_Delay.ProcessValue;
+            double rorDelay = Config.Time.Diag_Test_ROR_Delay.ProcessValue;
+            if (step.ElapsedTime.TotalSeconds < settle)
+            {
+                MyStaticVariables.SleepDiagnosticVar[port].ROR3InitialPressure = signal.PartVacuummTorr.Value;
+                MyStaticVariables.SleepDiagnosticVar[port].RORWithoutGunsCalcStartTime = DateTime.Now;
+            }
+            else
+            {
+                if (step.ElapsedTime.TotalSeconds > rorDelay + settle)
+                {
+                    MyStaticVariables.SleepDiagnosticVar[port].ROR3FinalPressure = signal.PartVacuummTorr.Value;
+                    MyStaticVariables.SleepDiagnosticVar[port].RORWithoutGunsCalcEndTime = DateTime.Now;
+                    step.Pass();
+                }
+            }
+        }
+
+        private void SleeptDiagRORWithoutGuns_Started(CycleStep step, CycleStep.CycleStepEventArgs e)
+        {
+            MyStaticVariables.SleepDiagnosticVar[port].RORWithoutGunsStarted = true;
+            dout.HiSideCharge.Disable();
+            dout.HiSideRecovery.Disable();
+            dout.HiSideToolStem.Disable();
+            dout.LoSideToolStem.Disable();
+
+            dout.RateOfRiseValve.Disable();
+            dout.UnitEvac.Enable();
+
+            dout.HiSideEvac.Disable();
+            dout.LoSideEvac.Disable();
+        }
+
+        private void SleeptDiagRORtoGuns_Passed(CycleStep step, CycleStep.CycleStepEventArgs e)
+        {
+            bsleepDiagnosticinsertRORtoGunsData = true;
+            bsleepDiagnosticinsertDate = true;
+
+            AddUutRecordDetail(MyStaticVariables.SleepDiagnosticVar[port].RORToGunsCalcStartTime, "RORToGuns", "Complete", "ROR Start Pressure", MyStaticVariables.SleepDiagnosticVar[port].ROR2InitialPressure, 0, "", 0, "", "mtorr", 105);
+            AddUutRecordDetail(MyStaticVariables.SleepDiagnosticVar[port].RORToGunsCalcEndTime, "RORToToGuns", "Complete", "ROR End Pressure", MyStaticVariables.SleepDiagnosticVar[port].ROR2FinalPressure, 0, "", 0, "", "mtorr", step.ElapsedTime.TotalSeconds);
+            AddUutRecordDetail(MyStaticVariables.SleepDiagnosticVar[port].RORToGunsCalcEndTime, "RORToToGuns", "Complete", "ROR", MyStaticVariables.SleepDiagnosticVar[port].ror2, 0, "", 0, "", "mtorr/min", step.ElapsedTime.TotalSeconds);
+            SleeptDiagRepeatEvac.Start();
+        }
+
+        private void SleeptDiagRORtoGuns_Tick(CycleStep step, CycleStep.CycleStepEventArgs e)
+        {
+            double settle = Config.Time.Diag_Test_Settle_Delay.ProcessValue;
+            double rorDelay = Config.Time.Diag_Test_ROR_Delay.ProcessValue;
+            if (step.ElapsedTime.TotalSeconds < settle)
+            {
+                MyStaticVariables.SleepDiagnosticVar[port].ROR2InitialPressure = signal.PartVacuummTorr.Value;
+                MyStaticVariables.SleepDiagnosticVar[port].RORToGunsCalcStartTime = DateTime.Now;
+            }
+            else
+            {
+                if (step.ElapsedTime.TotalSeconds > rorDelay + settle)
+                {
+                    MyStaticVariables.SleepDiagnosticVar[port].ROR2FinalPressure = signal.PartVacuummTorr.Value;
+                    MyStaticVariables.SleepDiagnosticVar[port].RORToGunsCalcEndTime = DateTime.Now;
+                    step.Pass();
+                }
+            }
+        }
+
+        private void SleeptDiagRORtoGuns_Started(CycleStep step, CycleStep.CycleStepEventArgs e)
+        {
+
+            MyStaticVariables.SleepDiagnosticVar[port].RORToGunsStarted = true;
+            dout.HiSideCharge.Disable();
+            dout.HiSideRecovery.Disable();
+            dout.HiSideToolStem.Disable();
+            dout.LoSideToolStem.Disable();
+
+            dout.RateOfRiseValve.Disable();
+            dout.UnitEvac.Enable();
+
+            dout.HiSideEvac.Enable();
+            dout.LoSideEvac.Enable();
+        }
+
+        private void SleeptDiagRepeatEvac_Passed(CycleStep step, CycleStep.CycleStepEventArgs e)
+        {
+            if (MyStaticVariables.SleepDiagnosticVar[port].RORToGunsStarted)
+            {
+                MyStaticVariables.SleepDiagnosticVar[port].RepeatEvac2Pressure = signal.PartVacuummTorr.Value;
+                MyStaticVariables.SleepDiagnosticVar[port].RepeatEvac2Time = step.ElapsedTime.TotalSeconds;
+
+                bsleepDiagnosticinsertRepeatEvac2Data = true;
+                bsleepDiagnosticinsertDate = true;
+                AddUutRecordDetail(DateTime.Now, "RepeatEvac1", "Complete", "Evac Pressure", signal.PartVacuummTorr.Value, 0, "", 0, "", "mtorr", step.ElapsedTime.TotalSeconds);
+                SleeptDiagRORWithoutGuns.Start();
+            }
+            else
+            {
+                MyStaticVariables.SleepDiagnosticVar[port].RepeatEvac1Pressure = signal.PartVacuummTorr.Value;
+                MyStaticVariables.SleepDiagnosticVar[port].RepeatEvac1Time = step.ElapsedTime.TotalSeconds;
+                bsleepDiagnosticinsertRepeatEvac1Data = true;
+                bsleepDiagnosticinsertDate = true;
+                AddUutRecordDetail(DateTime.Now, "RepeatEvac2", "Complete", "Evac Pressure", signal.PartVacuummTorr.Value, 0, "", 0, "", "mtorr", step.ElapsedTime.TotalSeconds);
+                SleeptDiagRORtoGuns.Start();
+            }
+        }
+
+        private void SleeptDiagRepeatEvac_Tick(CycleStep step, CycleStep.CycleStepEventArgs e)
+        {
+            if (step.ElapsedTime.TotalSeconds > 120) step.Pass();
+        }
+
+        private void SleeptDiagRepeatEvac_Started(CycleStep step, CycleStep.CycleStepEventArgs e)
+        {
+            dout.HiSideCharge.Disable();
+            dout.HiSideRecovery.Disable();
+            dout.HiSideToolStem.Disable();
+            dout.LoSideToolStem.Disable();
+
+            dout.RateOfRiseValve.Enable();
+            dout.UnitEvac.Enable();
+
+            if (!MyStaticVariables.SleepDiagnosticVar[port].RORToGunsStarted)
+            {
+                dout.HiSideEvac.Enable();
+                dout.LoSideEvac.Enable();
+            }
+            else
+            {
+                dout.HiSideEvac.Disable();
+                dout.LoSideEvac.Disable();
+            }
+        }
+
+        private void SleeptDiagRORtoHosesOnGuns_Passed(CycleStep step, CycleStep.CycleStepEventArgs e)
+        {
+            SleeptDiagRepeatEvac.Start();
+
+            AddUutRecordDetail(MyStaticVariables.SleepDiagnosticVar[port].RORToHoseOnGunsCalcStartTime, "RORToHosesOnGuns", "Complete", "ROR Start Pressure", MyStaticVariables.SleepDiagnosticVar[port].ROR1InitialPressure, 0, "", 0, "", "mtorr", 60);
+            AddUutRecordDetail(MyStaticVariables.SleepDiagnosticVar[port].RORToHoseOnGunsCalcEndTime, "RORToHosesOnGuns", "Complete", "ROR End Pressure", MyStaticVariables.SleepDiagnosticVar[port].ROR1FinalPressure, 0, "", 0, "", "mtorr", step.ElapsedTime.TotalSeconds);
+            AddUutRecordDetail(MyStaticVariables.SleepDiagnosticVar[port].RORToHoseOnGunsCalcEndTime, "RORToHosesOnGuns", "Complete", "ROR", MyStaticVariables.SleepDiagnosticVar[port].ror1, 0, "", 0, "", "mtorr/min", step.ElapsedTime.TotalSeconds);
+            bsleepDiagnosticinsertRORtoHosesOnGunsData = true;
+            bsleepDiagnosticinsertDate = true;
+        }
+
+        private void SleeptDiagRORtoHosesOnGuns_Tick(CycleStep step, CycleStep.CycleStepEventArgs e)
+        {
+            double settle = Config.Time.Diag_Test_Settle_Delay.ProcessValue;
+            double rorDelay = Config.Time.Diag_Test_ROR_Delay.ProcessValue;
+            if (step.ElapsedTime.TotalSeconds < settle)
+            {
+                MyStaticVariables.SleepDiagnosticVar[port].ROR1InitialPressure = signal.PartVacuummTorr.Value;
+                MyStaticVariables.SleepDiagnosticVar[port].RORToHoseOnGunsCalcStartTime = DateTime.Now;
+            }
+            else
+            {
+                if (step.ElapsedTime.TotalSeconds > rorDelay + settle)
+                {
+                    MyStaticVariables.SleepDiagnosticVar[port].ROR1FinalPressure = signal.PartVacuummTorr.Value;
+                    MyStaticVariables.SleepDiagnosticVar[port].RORToHoseOnGunsCalcEndTime = DateTime.Now;
+                    step.Pass();
+                }
+            }
+        }
+
+        private void SleeptDiagRORtoHosesOnGuns_Started(CycleStep step, CycleStep.CycleStepEventArgs e)
+        {
+            MyStaticVariables.SleepDiagnosticVar[port].RORToHoseOnGunsStarted = true;
+            dout.HiSideCharge.Disable();
+            dout.HiSideRecovery.Disable();
+            dout.HiSideToolStem.Enable();
+            dout.LoSideToolStem.Enable();
+
+            dout.RateOfRiseValve.Disable();
+            dout.UnitEvac.Enable();
+
+            dout.HiSideEvac.Enable();
+            dout.LoSideEvac.Enable();
+        }
+
+        private void SleepDiagSecondBasePressureCheck_Passed(CycleStep step, CycleStep.CycleStepEventArgs e)
+        {
+            MyStaticVariables.SleepDiagnosticVar[port].FinalBasePressureCheckPressure = signal.PartVacuummTorr.Value;
+            MyStaticVariables.SleepDiagnosticVar[port].FinalBasePressureCheckTime = step.ElapsedTime.TotalSeconds;
+            bsleepDiagnosticinsertBasePressCheck2Data = true;
+            bsleepDiagnosticinsertDate = true;
+
+            AddUutRecordDetail(DateTime.Now, "FinalBasePressureCheck", "Complete", "Evac Pressure", signal.PartVacuummTorr.Value, 0, "", 0, "", "mtorr", step.ElapsedTime.TotalSeconds);
+            if (Config.Mode.SleepDiagnosticCheckHoseWhips.ProcessValue)
+            {
+                SleeptDiagRORtoHosesOnGuns.Start();
+            }
+            else SleeptDiagRORtoGuns.Start();
+        }
+
+        private void SleepDiagSecondBasePressureCheck_Tick(CycleStep step, CycleStep.CycleStepEventArgs e)
+        {
+            if (step.ElapsedTime.TotalSeconds > 45)
+            {
+                step.Pass();
+            }
+        }
+
+        private void SleepDiagSecondBasePressureCheck_Started(CycleStep step, CycleStep.CycleStepEventArgs e)
+        {
+            IO.DOut.EvacPumpEnable.Enable();
+            dout.UnitEvac.Disable();
+            dout.RateOfRiseValve.Enable();
+        }
+
+        private void SleepDiagFirstBasePressCheck_Passed(CycleStep step, CycleStep.CycleStepEventArgs e)
+        {
+            MyStaticVariables.SleepDiagnosticVar[port].InitialBasePressureCheckPressure = signal.PartVacuummTorr.Value;
+            MyStaticVariables.SleepDiagnosticVar[port].InitialBasePressureCheckTime = step.ElapsedTime.TotalSeconds;
+            bsleepDiagnosticinsertbasePressCheck1Data = true;
+            bsleepDiagnosticinsertDate = true;
+            AddUutRecordDetail(DateTime.Now, "InitialBasePressureCheck", "Complete", "Evac Pressure", signal.PartVacuummTorr.Value, 0, "", 0, "", "mtorr", step.ElapsedTime.TotalSeconds);
+            SleepDiagnosticEvacTillTime.Start();
+        }
+
+        private void SleepDiagFirstBasePressCheck_Tick(CycleStep step, CycleStep.CycleStepEventArgs e)
+        {
+            if (step.ElapsedTime.TotalSeconds > 45)
+            {
+                step.Pass();
+            }
+        }
+
+        private void SleepDiagFirstBasePressCheck_Started(CycleStep step, CycleStep.CycleStepEventArgs e)
+        {
+            IO.DOut.EvacPumpEnable.Enable();
+            dout.UnitEvac.Disable();
+            dout.RateOfRiseValve.Enable();
+        }
+
+        private void SleepDiagnosticEvacTillTime_Failed(CycleStep step, CycleStep.CycleStepEventArgs e)
+        {
+            MyStaticVariables.SleepDiagnosticVar[port].SystemEvacuationPressure = signal.PartVacuummTorr.Value;
+            MyStaticVariables.SleepDiagnosticVar[port].SystemEvacuationTimeInHr = step.ElapsedTime.TotalHours;
+            MyStaticVariables.SleepDiagnosticVar[port].Result = "System Evacuation Failed";
+            bsleepDiagnosticinsertSystemEvacData = true;
+            bsleepDiagnosticinsertDate = true;
+            bsleepDiagnosticinsertResult = true;
+
+            WriteSleepResultsToDatabase("EVAC FAIL");
+            dout.UnitEvac.Disable();
+            CycleNoTest("Sleep Diagnostic Aborted", "Sleep Diagnostic Aborted");
+            SleepDiagPromptToEnd.Start();
+        }
+
+        private void SleepDiagnosticEvacTillTime_Tick(CycleStep step, CycleStep.CycleStepEventArgs e)
+        {
+            if (step.ElapsedTime.TotalMinutes > 20 && signal.PartVacuummTorr.Value > 25000) step.Fail();
+            else
+            {
+                if (Machine.Test[port].SerialNumber == "VACUUM CHECK")
+                {
+                    if (step.ElapsedTime.TotalSeconds > Config.Time.Diag_Test_Evac_Delay.ProcessValue) step.Pass();
+                }
+                else
+                {
+                    if (DateTime.Now > MyStaticVariables.SleepDiagnosticVar[port].EvacEnd)
+                    {
+                        step.Pass();
+                    }
+                }
+            }
+        }
+
+        private void SleepDiagnosticEvacTillTime_Passed(CycleStep step, CycleStep.CycleStepEventArgs e)
+        {
+            MyStaticVariables.SleepDiagnosticVar[port].SystemEvacuationPressure = signal.PartVacuummTorr.Value;
+            MyStaticVariables.SleepDiagnosticVar[port].SystemEvacuationTimeInHr = step.ElapsedTime.TotalHours;
+
+            AddUutRecordDetail(DateTime.Now, "System Evacuation", "Complete", "Evac Pressure", signal.PartVacuummTorr.Value, 0, "", 0, "", "mtorr", step.ElapsedTime.TotalSeconds);
+            bsleepDiagnosticinsertSystemEvacData = true;
+            bsleepDiagnosticinsertDate = true;
+            SleepDiagSecondBasePressureCheck.Start();
+        }
+
+        private void SleepDiagnosticEvacTillTime_Started(CycleStep step, CycleStep.CycleStepEventArgs e)
+        {
+
+            #region Get Ending DateTime
+            // Set the target time as a string in the format "x:xx"
+            string targetTimeString = Config.Control.TimeToStartDianostic.ProcessValue;
+            TimeSpan targetTime;
+
+            // Parse the target time string
+            if (!TimeSpan.TryParse(targetTimeString, out targetTime))
+            {
+                Console.WriteLine("Invalid time format. Please use the format 'x:xx'.");
+                targetTime = TimeSpan.Parse("5:00");
+
+            }
+
+            DateTime now = DateTime.Now;
+            DateTime nextTargetTime;
+
+            // Create a DateTime object with today's date and the parsed target time
+            DateTime targetDateTime = now.Date.Add(targetTime);
+
+            if (now > targetDateTime)
+            {
+                // If it's past the target time today, get tomorrow's target time
+                nextTargetTime = now.Date.AddDays(1).Add(targetTime);
+            }
+            else
+            {
+                // If it's before the target time today, get today's target time
+                nextTargetTime = targetDateTime;
+            }
+
+            Console.WriteLine("Next target time: " + nextTargetTime);
+            #endregion
+
+            MyStaticVariables.SleepDiagnosticVar[port].EvacEnd = nextTargetTime;
+
+
+            dout.HiSideCharge.Disable();
+            dout.HiSideRecovery.Disable();
+            if (Config.Mode.SleepDiagnosticCheckHoseWhips.ProcessValue)
+            {
+                dout.HiSideToolStem.Enable();
+                dout.LoSideToolStem.Enable();
+            }
+            else
+            {
+                dout.HiSideToolStem.Disable();
+                dout.LoSideToolStem.Disable();
+            }
+
+            dout.RateOfRiseValve.Enable();
+            dout.UnitEvac.Enable();
+
+            dout.HiSideEvac.Enable();
+            dout.LoSideEvac.Enable();
+        }
+
+        private void SleepDiagnosticPromptToPlug_Passed(CycleStep step, CycleStep.CycleStepEventArgs e)
+        {
+            MyStaticVariables.BlueUUTRecordsToWrite.Clear();
+            bDisplaySleepDiagnosticsForm = true;
+            SleepDiagFirstBasePressCheck.Start();
+        }
+
+        private void SleepDiagnosticPromptToPlug_Tick(CycleStep step, CycleStep.CycleStepEventArgs e)
+        {
+            if (IO.DIn.Acknowledge.Value)
+            {
+                step.Pass();
+            }
+        }
+
+        public void AddUutRecordDetail(DateTime DateTime1, String Test1, String Result1, String ValueName1, double value1, double MinSetpoint1, string MinSetpointName1, double MaxSetpoint1, string MaxSetpointName1, string Units1, double ElapsedTime1)
+        {
+            MyStaticVariables.UUTRecordDetailToWrite tempUUTRecordDetailToWrite = new MyStaticVariables.UUTRecordDetailToWrite(DateTime1, Test1, Result1, ValueName1, value1, MinSetpoint1, MinSetpointName1, MaxSetpoint1, MaxSetpointName1, Units1, ElapsedTime1);
+            MyStaticVariables.BlueUUTRecordsToWrite.Add(tempUUTRecordDetailToWrite);
+        }
         private void HoseRecoveryDelay_Passed(CycleStep step, CycleStep.CycleStepEventArgs e)
         {
             ChargeHoseChargeToolRecovery.Start();
@@ -5286,61 +5900,47 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
 
 
                 //****mdb12/11/17
-                if (Config.Mode.HP_SwitchChargeOnFlow.ProcessValue)
+                if (Config.Mode.HP_SwitchChargeOnFlow.ProcessValue &&
+                    (PartFlow < model.FlowRateSwitch.ProcessValue) &&
+                    (step.ElapsedTime.TotalSeconds > 5.0))
                 {
                     //****mdb 2/20/18
                     //if (PartFlow < Config.Flow.HP_Flowmeter_Switch_SetPoint.ProcessValue)
-                    if (PartFlow < model.FlowRateSwitch.ProcessValue)
-                    {
-                        if (step.ElapsedTime.TotalSeconds > 5.0)
-                        {
                             Machine.Cycle[port].bEnableLowSideCharge = true;
                             step.Pass();
                             return;
-                        }
-                    }
                 }
+                else if (!Config.Mode.HP_SwitchChargeOnFlow.ProcessValue &&
+                         (LowFlowAlarmTime.TotalSeconds > 3.0) && (step.ElapsedTime.TotalSeconds > 5.0))
+                {
+                    //fail on minimum rate error
+                    //if ((PartFlow < Config.Flow.Minimum_Flowmeter_Rate.ProcessValue) && (step.ElapsedTime.TotalSeconds > 5.0))
+                    Machine.Test[port].TestResult = Localization.LowFlowFailed;
+                    Machine.Test[port].TestHistory = Localization.LowFlowTH;
+
+                    step.Fail();
+                }
+                else if (step.ElapsedTime.TotalSeconds > MaximumTime)
+                {
+                    //fail on timeout based on rate (uses Elapsed Time)
+                    Machine.Test[port].TestResult = Localization.MaximumTimeFailed;
+                    Machine.Test[port].TestHistory = Localization.MaximumTimeTH;
+
+                    step.Fail();
+                }   
                 else//****mdb12/11/17
                 {
 
-                    //fail on minimum rate error
-                    //if ((PartFlow < Config.Flow.Minimum_Flowmeter_Rate.ProcessValue) && (step.ElapsedTime.TotalSeconds > 5.0))
-                    if ((LowFlowAlarmTime.TotalSeconds > 3.0) && (step.ElapsedTime.TotalSeconds > 5.0))
+                    //pass when count is expired/valve closes
+                    if (step.ElapsedTime.TotalSeconds > 4.0)
                     {
-                        Machine.Test[port].TestResult = Localization.LowFlowFailed;
-                        Machine.Test[port].TestHistory = Localization.LowFlowTH;
-
-                        step.Fail();
-                    }
-                    else
-                    {
-                        //fail on timeout based on rate (uses Elapsed Time)
-                        if (step.ElapsedTime.TotalSeconds > MaximumTime)
+                        if (IO.Signals.CounterOutputs.Value < 0.5)
                         {
-                            Machine.Test[port].TestResult = Localization.MaximumTimeFailed;
-                            Machine.Test[port].TestHistory = Localization.MaximumTimeTH;
-
-                            step.Fail();
+                            step.Pass();
                         }
-                        else
+                        else if ((IO.Signals.CounterOutputs.Value > 1.5) && (IO.Signals.CounterOutputs.Value < 2.5))
                         {
-                            {
-                                {
-
-                                    //pass when count is expired/valve closes
-                                    if (step.ElapsedTime.TotalSeconds > 4.0)
-                                    {
-                                        if (IO.Signals.CounterOutputs.Value < 0.5)
-                                        {
-                                            step.Pass();
-                                        }
-                                        else if ((IO.Signals.CounterOutputs.Value > 1.5) && (IO.Signals.CounterOutputs.Value < 2.5))
-                                        {
-                                            step.Pass();
-                                        }
-                                    }
-                                }
-                            }
+                            step.Pass();
                         }
                     }
                 }

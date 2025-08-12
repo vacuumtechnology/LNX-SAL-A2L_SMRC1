@@ -1021,6 +1021,89 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE
             //Machine.FlowmeterCalibrate.Show();
             Machine.Cycle[0].bDisplayFlowmeterCalibration = true;
         }
+        [ManualCommand("SLEEP DIAGNOSTIC FORM", true, CommandPermissionType.CheckPermissionWithWarning)]
+        public virtual void SleepDiagnosticsForm()
+        {
+            Machine.Cycle[0].bDisplaySleepDiagnosticsForm = true;
+        }
+
+
+        public virtual void DisplaySleepDiagnosticsForm()
+        {
+            Machine.SleepDiagnosticsForm.Show();
+        }
+
+        public virtual void HideSleepDiagnosticsForm()
+        {
+            Machine.SleepDiagnosticsForm.Hide();
+        }
+
+        [ManualCommand("RUN SLEEP DIAGNOSTIC", true, CommandPermissionType.CheckPermissionWithWarning)]
+        public virtual void RunSleepDiagnosticsForm()
+        {
+            if (Machine.Cycle[0].Idle.State == CycleStepState.InProcess && Machine.Cycle[1].Idle.State == CycleStepState.InProcess)
+            {
+                double RORinModelMicronsPerMin = Config.CurrentModel[0].ROR_Pressure_Check_Pressure_SetPointt.ProcessValue * 1000 / (Config.CurrentModel[0].ROR_Pressure_Check_Delay.ProcessValue / 60);
+                if (Config.Flow.SleepDiagnosticMaxROR.ProcessValue > RORinModelMicronsPerMin + 2 || Config.Flow.SleepDiagnosticMaxROR.ProcessValue < RORinModelMicronsPerMin - 2)
+                {
+                    switch (MessageBox.Show("Would you like to change 'Sleep Diagnostic Max ROR' setting to match the rate of rise set up in the selected model on the blue side?", "Change Setting?", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
+                    {
+                        case DialogResult.Yes:
+                            Config.Flow.SleepDiagnosticMaxROR.ProcessValue = RORinModelMicronsPerMin;
+                            Config.Save();
+                            break;
+                        case DialogResult.No:
+                            break;
+                    }
+                }
+
+                Machine.Test[0].SerialNumber = "SLEEP DIAGNOSTIC";
+                MyStaticVariables.SleepDiagnosticVar[0] = new MyStaticVariables.SleepDiagnostic();
+                MyStaticVariables.SleepDiagnosticVar[0].RORToGunsStarted = false;
+                MyStaticVariables.SleepDiagnosticVar[0].RORToHoseOnGunsStarted = false;
+                MyStaticVariables.SleepDiagnosticVar[0].RORWithoutGunsStarted = false;
+                Machine.Cycle[0].bsleepDiagnosticClearForm = true;
+                Machine.Cycle[0].SleepDiagnosticPromptToPlug.Start();
+                Machine.Cycle[0].bSleepDiagStartDataPlot = true;
+            }
+            else
+            {
+                MessageBox.Show(Localization.SystemNotReadyToTest, Application.ProductName);
+            }
+        }
+        [ManualCommand("VACUUM CHECK BLUE", true, CommandPermissionType.CheckPermissionWithWarning)]
+        public virtual void VacuumCheckBlue()
+        {
+            if (Machine.Cycle[0].Idle.State == CycleStepState.InProcess)
+            {
+                double RORinModelMicronsPerMin = Config.CurrentModel[0].ROR_Pressure_Check_Pressure_SetPointt.ProcessValue * 1000 / (Config.CurrentModel[0].ROR_Pressure_Check_Delay.ProcessValue / 60);
+                if (Config.Flow.SleepDiagnosticMaxROR.ProcessValue > RORinModelMicronsPerMin + 2 || Config.Flow.SleepDiagnosticMaxROR.ProcessValue < RORinModelMicronsPerMin - 2)
+                {
+                    switch (MessageBox.Show("Would you like to change 'Sleep Diagnostic Max ROR' setting to match the rate of rise set up in the selected model on the blue side?", "Change Setting?", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
+                    {
+                        case DialogResult.Yes:
+                            Config.Flow.SleepDiagnosticMaxROR.ProcessValue = RORinModelMicronsPerMin;
+                            Config.Save();
+                            break;
+                        case DialogResult.No:
+                            break;
+                    }
+                }
+
+                Machine.Test[0].SerialNumber = "VACUUM CHECK";
+                MyStaticVariables.SleepDiagnosticVar[0] = new MyStaticVariables.SleepDiagnostic();
+                MyStaticVariables.SleepDiagnosticVar[0].RORToGunsStarted = false;
+                MyStaticVariables.SleepDiagnosticVar[0].RORToHoseOnGunsStarted = false;
+                MyStaticVariables.SleepDiagnosticVar[0].RORWithoutGunsStarted = false;
+                Machine.Cycle[0].bsleepDiagnosticClearForm = true;
+                Machine.Cycle[0].SleepDiagnosticPromptToPlug.Start();
+                Machine.Cycle[0].bSleepDiagStartDataPlot = true;
+            }
+            else
+            {
+                MessageBox.Show(Localization.SystemNotReadyToTest, Application.ProductName);
+            }
+        }
         public virtual void DisplayFlowmeterCalibration()
         {
             Machine.FlowmeterCalibrate.Show();

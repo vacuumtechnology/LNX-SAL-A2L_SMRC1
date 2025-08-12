@@ -83,7 +83,100 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
 		public static DateTime RecoveryStartBlue;
 		public static DateTime RecoveryAbove50PsiBlue;
 
-		public static double MilesToKilo(double miles)
+        public static SleepDiagnostic[] SleepDiagnosticVar = new SleepDiagnostic[2]
+        {
+            new SleepDiagnostic(),new SleepDiagnostic()
+        };
+
+        public class SleepDiagnostic
+        {
+            public bool RORToHoseOnGunsStarted = false;
+            public bool RORToGunsStarted = false;
+            public bool RORWithoutGunsStarted = false;
+            public DateTime RORToGunsCalcStartTime = DateTime.Now;
+            public DateTime RORToGunsCalcEndTime = DateTime.Now;
+            public DateTime RORWithoutGunsCalcStartTime = DateTime.Now;
+            public DateTime RORWithoutGunsCalcEndTime = DateTime.Now;
+            public DateTime RORToHoseOnGunsCalcStartTime = DateTime.Now;
+            public DateTime RORToHoseOnGunsCalcEndTime = DateTime.Now;
+            public DateTime EvacStarted = DateTime.Now;
+            public DateTime EvacEnd = DateTime.Now;
+
+            public double InitialBasePressureCheckTime = 0;
+            public double InitialBasePressureCheckPressure = 0;
+            public double SystemEvacuationTimeInHr = 0;
+            public double SystemEvacuationPressure = 0;
+            public double FinalBasePressureCheckTime = 0;
+            public double FinalBasePressureCheckPressure = 0;
+            public string ROR1Initialtime = "";
+            public double ROR1InitialPressure = 0;
+            public string ROR1Finaltime = "";
+            public double ROR1FinalPressure = 0;
+            public double ROR1mtorrPerMin = 0;
+            public double RepeatEvac1Time = 0;
+            public double RepeatEvac1Pressure = 0;
+            public string ROR2Initialtime = "";
+            public double ROR2InitialPressure = 0;
+            public string ROR2Finaltime = "";
+            public double ROR2FinalPressure = 0;
+            public double ROR2mtorrPerMin = 0;
+            public double RepeatEvac2Time = 0;
+            public double RepeatEvac2Pressure = 0;
+            public string ROR3Initialtime = "";
+            public double ROR3InitialPressure = 0;
+            public string ROR3Finaltime = "";
+            public double ROR3FinalPressure = 0;
+            public double ROR3mtorrPerMin = 0;
+            public string Result = "";
+            public double ror1 { get { return (ROR1FinalPressure - ROR1InitialPressure) / ((RORToHoseOnGunsCalcEndTime - RORToHoseOnGunsCalcStartTime).TotalMinutes); } }
+            public double ror2 { get { return (ROR2FinalPressure - ROR2InitialPressure) / ((RORToGunsCalcEndTime - RORToGunsCalcStartTime).TotalMinutes); } }
+            public double ror3 { get { return (ROR3FinalPressure - ROR3InitialPressure) / ((RORWithoutGunsCalcEndTime - RORWithoutGunsCalcStartTime).TotalMinutes); } }
+            public bool Passed
+            {
+                get
+                {
+                    if ((ror1 < Configuration.Config.Flow.SleepDiagnosticMaxROR.ProcessValue || !RORToHoseOnGunsStarted) &&
+                        ror2 < Configuration.Config.Flow.SleepDiagnosticMaxROR.ProcessValue &&
+                        ror3 < Configuration.Config.Flow.SleepDiagnosticMaxROR.ProcessValue) return true;
+                    else return false;
+                }
+            }
+
+
+        }
+
+        public static List<UUTRecordDetailToWrite> BlueUUTRecordsToWrite = new List<UUTRecordDetailToWrite>();
+
+        public class UUTRecordDetailToWrite
+        {
+            public DateTime DateTime1;
+            public String Test1;
+            public String Result1;
+            public string ValueName1;
+            public double value1;
+            public double MinSetpoint1;
+            public string MinSetpointName1;
+            public double MaxSetpoint1;
+            public string MaxSetpointName1;
+            public string Units1;
+            public double ElapsedTime1;
+
+            public UUTRecordDetailToWrite(DateTime dateTime1, string test1, string result1, string valueName1, double value1, double minSetpoint1, string minSetpointName1, double maxSetpoint1, string maxSetpointName1, string units1, double elapsedTime1)
+            {
+                DateTime1 = dateTime1;
+                Test1 = test1;
+                Result1 = result1;
+                ValueName1 = valueName1;
+                this.value1 = value1;
+                MinSetpoint1 = minSetpoint1;
+                MinSetpointName1 = minSetpointName1;
+                MaxSetpoint1 = maxSetpoint1;
+                MaxSetpointName1 = maxSetpointName1;
+                Units1 = units1;
+                ElapsedTime1 = elapsedTime1;
+            }
+        }
+        public static double MilesToKilo(double miles)
         {
             // This method can be accessed through the class name MyStaticVariables not through an instance of MyStaticVariables and is always available
             // No instantiation is needed

@@ -8,6 +8,7 @@ using VTIWindowsControlLibrary.Classes;
 using VTIWindowsControlLibrary.Classes.ClientForms;
 using VTIWindowsControlLibrary.Classes.CycleSteps;
 using VTIWindowsControlLibrary.Enums;
+using System.Drawing;
 //using MccDaq;
 
 
@@ -297,7 +298,84 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Forms
 
 			}
 
-
+			if (Machine.Cycle[Port.Blue].bDisplaySleepDiagnosticsForm == true)
+			{
+				Machine.Cycle[Port.Blue].bDisplaySleepDiagnosticsForm = false;
+				Machine.ManualCommands.DisplaySleepDiagnosticsForm();
+			}
+			if (Machine.Cycle[Port.Blue].bHideSleepDiagnosticsForm == true)
+			{
+				Machine.Cycle[Port.Blue].bHideSleepDiagnosticsForm = false;
+				Machine.ManualCommands.HideSleepDiagnosticsForm();
+			}
+			if (Machine.Cycle[Port.Blue].bsleepDiagnosticinsertbasePressCheck1Data == true)
+			{
+				Machine.Cycle[Port.Blue].bsleepDiagnosticinsertbasePressCheck1Data = false;
+				Machine.SleepDiagnosticsForm.InsertInitialBasePressCheckData(0, MyStaticVariables.SleepDiagnosticVar[0].InitialBasePressureCheckTime, MyStaticVariables.SleepDiagnosticVar[0].InitialBasePressureCheckPressure);
+			}
+			if (Machine.Cycle[Port.Blue].bsleepDiagnosticinsertSystemEvacData == true)
+			{
+				Machine.Cycle[Port.Blue].bsleepDiagnosticinsertSystemEvacData = false;
+				Machine.SleepDiagnosticsForm.InsertSystemEvacutionData(0, MyStaticVariables.SleepDiagnosticVar[0].SystemEvacuationTimeInHr, MyStaticVariables.SleepDiagnosticVar[0].SystemEvacuationPressure);
+			}
+			if (Machine.Cycle[Port.Blue].bsleepDiagnosticinsertBasePressCheck2Data == true)
+			{
+				Machine.Cycle[Port.Blue].bsleepDiagnosticinsertBasePressCheck2Data = false;
+				Machine.SleepDiagnosticsForm.InsertFinalBasePressCheckData(0, MyStaticVariables.SleepDiagnosticVar[0].FinalBasePressureCheckTime, MyStaticVariables.SleepDiagnosticVar[0].FinalBasePressureCheckPressure);
+			}
+			if (Machine.Cycle[Port.Blue].bsleepDiagnosticinsertRORtoHosesOnGunsData == true)
+			{
+				Machine.Cycle[Port.Blue].bsleepDiagnosticinsertRORtoHosesOnGunsData = false;
+				MyStaticVariables.SleepDiagnosticVar[0].ROR1Initialtime = MyStaticVariables.SleepDiagnosticVar[0].RORToHoseOnGunsCalcStartTime.ToString("hh:mm tt");
+				MyStaticVariables.SleepDiagnosticVar[0].ROR1Finaltime = MyStaticVariables.SleepDiagnosticVar[0].RORToHoseOnGunsCalcEndTime.ToString("hh:mm tt");
+				double ror1 = (MyStaticVariables.SleepDiagnosticVar[0].ROR1FinalPressure - MyStaticVariables.SleepDiagnosticVar[0].ROR1InitialPressure) / ((MyStaticVariables.SleepDiagnosticVar[0].RORToHoseOnGunsCalcEndTime - MyStaticVariables.SleepDiagnosticVar[0].RORToHoseOnGunsCalcStartTime).TotalMinutes);
+				Color color1 = (ror1 > Config.Flow.SleepDiagnosticMaxROR.ProcessValue) ? Color.Red : Color.DarkGreen;
+				Machine.SleepDiagnosticsForm.InsertRORtoHosesOnGunsData(0, MyStaticVariables.SleepDiagnosticVar[0].ROR1Initialtime, MyStaticVariables.SleepDiagnosticVar[0].ROR1InitialPressure, MyStaticVariables.SleepDiagnosticVar[0].ROR1Finaltime, MyStaticVariables.SleepDiagnosticVar[0].ROR1FinalPressure, ror1, color1);
+			}
+			if (Machine.Cycle[Port.Blue].bsleepDiagnosticinsertRepeatEvac1Data == true)
+			{
+				Machine.Cycle[Port.Blue].bsleepDiagnosticinsertRepeatEvac1Data = false;
+				Machine.SleepDiagnosticsForm.InsertRepeatEvac1Data(0, MyStaticVariables.SleepDiagnosticVar[0].RepeatEvac1Time, MyStaticVariables.SleepDiagnosticVar[0].RepeatEvac1Pressure);
+			}
+			if (Machine.Cycle[Port.Blue].bsleepDiagnosticinsertRORtoGunsData == true)
+			{
+				Machine.Cycle[Port.Blue].bsleepDiagnosticinsertRORtoGunsData = false;
+				if (!MyStaticVariables.SleepDiagnosticVar[0].RORToHoseOnGunsStarted) Machine.SleepDiagnosticsForm.ClearRORtoHosesOnGunsData(0);
+				MyStaticVariables.SleepDiagnosticVar[0].ROR2Initialtime = MyStaticVariables.SleepDiagnosticVar[0].RORToGunsCalcStartTime.ToString("hh:mm tt");
+				MyStaticVariables.SleepDiagnosticVar[0].ROR2Finaltime = MyStaticVariables.SleepDiagnosticVar[0].RORToGunsCalcEndTime.ToString("hh:mm tt");
+				double ror1 = (MyStaticVariables.SleepDiagnosticVar[0].ROR2FinalPressure - MyStaticVariables.SleepDiagnosticVar[0].ROR2InitialPressure) / ((MyStaticVariables.SleepDiagnosticVar[0].RORToGunsCalcEndTime - MyStaticVariables.SleepDiagnosticVar[0].RORToGunsCalcStartTime).TotalMinutes);
+				Color color1 = (ror1 > Config.Flow.SleepDiagnosticMaxROR.ProcessValue) ? Color.Red : Color.DarkGreen;
+				Machine.SleepDiagnosticsForm.InsertRORtoGunsData(0, MyStaticVariables.SleepDiagnosticVar[0].ROR2Initialtime, MyStaticVariables.SleepDiagnosticVar[0].ROR2InitialPressure, MyStaticVariables.SleepDiagnosticVar[0].ROR2Finaltime, MyStaticVariables.SleepDiagnosticVar[0].ROR2FinalPressure, ror1, color1);
+			}
+			if (Machine.Cycle[Port.Blue].bsleepDiagnosticinsertRepeatEvac2Data == true)
+			{
+				Machine.Cycle[Port.Blue].bsleepDiagnosticinsertRepeatEvac2Data = false;
+				Machine.SleepDiagnosticsForm.InsertRepeatEvac2Data(0, MyStaticVariables.SleepDiagnosticVar[0].RepeatEvac2Time, MyStaticVariables.SleepDiagnosticVar[0].RepeatEvac2Pressure);
+			}
+			if (Machine.Cycle[Port.Blue].bsleepDiagnosticinsertRORwithoutGunsData == true)
+			{
+				Machine.Cycle[Port.Blue].bsleepDiagnosticinsertRORwithoutGunsData = false;
+				MyStaticVariables.SleepDiagnosticVar[0].ROR3Initialtime = MyStaticVariables.SleepDiagnosticVar[0].RORWithoutGunsCalcStartTime.ToString("hh:mm tt");
+				MyStaticVariables.SleepDiagnosticVar[0].ROR3Finaltime = MyStaticVariables.SleepDiagnosticVar[0].RORWithoutGunsCalcEndTime.ToString("hh:mm tt");
+				double ror1 = (MyStaticVariables.SleepDiagnosticVar[0].ROR3FinalPressure - MyStaticVariables.SleepDiagnosticVar[0].ROR3InitialPressure) / ((MyStaticVariables.SleepDiagnosticVar[0].RORWithoutGunsCalcEndTime - MyStaticVariables.SleepDiagnosticVar[0].RORWithoutGunsCalcStartTime).TotalMinutes);
+				Color color1 = (ror1 > Config.Flow.SleepDiagnosticMaxROR.ProcessValue) ? Color.Red : Color.DarkGreen;
+				Machine.SleepDiagnosticsForm.InsertRORWithoutGunsData(0, MyStaticVariables.SleepDiagnosticVar[0].ROR3Initialtime, MyStaticVariables.SleepDiagnosticVar[0].ROR3InitialPressure, MyStaticVariables.SleepDiagnosticVar[0].ROR3Finaltime, MyStaticVariables.SleepDiagnosticVar[0].ROR3FinalPressure, ror1, color1);
+			}
+			if (Machine.Cycle[Port.Blue].bsleepDiagnosticinsertResult == true)
+			{
+				Machine.Cycle[Port.Blue].bsleepDiagnosticinsertResult = false;
+				Machine.SleepDiagnosticsForm.InsertResultData(0, MyStaticVariables.SleepDiagnosticVar[0].Result);
+			}
+			if (Machine.Cycle[Port.Blue].bsleepDiagnosticinsertDate == true)
+			{
+				Machine.Cycle[Port.Blue].bsleepDiagnosticinsertDate = false;
+				Machine.SleepDiagnosticsForm.SetDate(0, DateTime.Now.ToString("MM/dd/yy"));
+			}
+			if (Machine.Cycle[Port.Blue].bsleepDiagnosticClearForm == true)
+			{
+				Machine.Cycle[Port.Blue].bsleepDiagnosticClearForm = false;
+				Machine.SleepDiagnosticsForm.ClearBlue();
+			}
 
 			try
 			{
