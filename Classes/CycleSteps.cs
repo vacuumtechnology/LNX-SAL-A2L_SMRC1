@@ -12390,7 +12390,7 @@ namespace VTI_EVAC_AND_SINGLE_CHARGE.Classes
                  DateTime.Now.ToString() + "', '" +
                  "Charge" + "', '" +
                  Machine.Test[port].ChargeResult + "', '" +
-                 "ActualChargeCounts" + "', '" +
+                 "EndingCounts" + "', '" +
                  string.Format("{0:0}", endingcountsTemp) + "', '" +
                  "TargetChargeCounts" + "', '" +
                   string.Format("{0:0}", Machine.Test[port].TargetCounts) + "', '" +
